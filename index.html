@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Angels Makeup | Makeup Artist in Miami</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #f8f5f2;
+      color: #3f3f3f;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(248, 245, 242, 0.95);
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 34px;
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hero {
+      min-height: 100vh;
+      background:
+        linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.55)),
+        url("images/work6.jpg") center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 8% 60px;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 92px;
+      font-weight: 400;
+    }
+
+    .hero p {
+      margin-top: 10px;
+      font-size: 18px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .hero-buttons {
+      margin-top: 35px;
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 34px;
+      border: 1px solid #3f3f3f;
+      background: transparent;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: 0.3s;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background: #3f3f3f;
+      color: #fff;
+    }
+
+    .btn-light {
+      background: #fff;
+    }
+
+    section {
+      padding: 90px 8%;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      text-align: center;
+      font-size: 64px;
+      font-weight: 400;
+      margin-bottom: 55px;
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 55px;
+      align-items: center;
+    }
+
+    .about img {
+      height: 620px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .about-text h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 44px;
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+
+    .about-text p {
+      margin-bottom: 16px;
+      font-size: 16px;
+    }
+
+    .services {
+      background: #fff;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .service-card {
+      background: #f8f5f2;
+      padding: 34px 24px;
+      text-align: center;
+      border: 1px solid #eadfd6;
+    }
+
+    .service-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 34px;
+      font-weight: 400;
+      margin-bottom: 12px;
+    }
+
+    .service-card span {
+      display: block;
+      margin-top: 16px;
+      font-weight: 500;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .portfolio-grid img {
+      height: 430px;
+      object-fit: cover;
+      transition: 0.3s;
+    }
+
+    .portfolio-grid img:hover {
+      transform: scale(1.02);
+    }
+
+    .booking {
+      background: #fff;
+    }
+.booking-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    form {
+      display: grid;
+      gap: 18px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #ccc;
+      background: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+    }
+
+    textarea {
+      height: 120px;
+      resize: none;
+    }
+
+    .faq {
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #d8c7b5;
+      padding: 18px 0;
+    }
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: 0.4s;
+      color: #666;
+      padding-right: 30px;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 160px;
+      margin-top: 12px;
+    }
+
+    .contact {
+      text-align: center;
+      background: #fff;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 35px;
+      font-size: 13px;
+      color: #777;
+    }
+
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 62px;
+      }
+
+      .about {
+        grid-template-columns: 1fr;
+      }
+
+      .services-grid,
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        font-size: 48px;
+      }
+
+      .about img,
+      .portfolio-grid img {
+        height: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="navbar">
+    <a href="#" class="logo">Angels Makeup</a>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#booking">Book</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>Angels Makeup</h1>
+      <p>Professional Makeup Artist | Miami, Florida</p>
+      <div class="hero-buttons">
+        <a class="btn btn-light" href="#booking">Book Now</a>
+        <a class="btn btn-light" href="#portfolio">View Portfolio</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2 class="section-title">About Me</h2>
+    <div class="about">
+      <div>
+        <img src="images/angelina.jpg" alt="Angelina from Angels Makeup">
+      </div>
+      <div class="about-text">
+        <h3>Hi, I'm Angelina.</h3>
+        <p>I am a professional makeup artist based in Miami, Florida.</p>
+        <p>My goal is to help every client feel confident, elegant and beautiful for weddings, photoshoots, events and special occasions.</p>
+        <p>Angels Makeup is all about soft glam, clean beauty, luxury details and a look that feels perfect for you.</p>
+        <a class="btn" href="#booking">Book Your Appointment</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="services">
+    <h2 class="section-title">Services</h2>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>Soft Glam</h3>
+        <p>Natural, glowing and elegant makeup for any occasion.</p>
+        <span>Starting from $100</span>
+      </div>
+
+      <div class="service-card">
+        <h3>Full Glam</h3>
+        <p>More defined makeup with lashes, contour and a flawless finish.</p>
+        <span>Starting from $120</span>
+      </div>
+
+      <div class="service-card">
+        <h3>Bridal Makeup</h3>
+        <p>Luxury makeup for brides, bridesmaids and wedding guests.</p>
+        <span>Starting from $150</span>
+      </div>
+
+      <div class="service-card">
+        <h3>Makeup & Hair</h3>
+        <p>Complete beauty look for photoshoots, events and celebrations.</p>
+        <span>Starting from $180</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <h2 class="section-title">Portfolio</h2>
+
+    <div class="portfolio-grid">
+<img src="images/work1.jpg" alt="Makeup work 1">
+      <img src="images/work2.jpg" alt="Makeup work 2">
+      <img src="images/work3.jpg" alt="Makeup work 3">
+      <img src="images/work4.jpg" alt="Makeup work 4">
+      <img src="images/work5.jpg" alt="Makeup work 5">
+      <img src="images/work6.jpg" alt="Makeup work 6">
+    </div>
+  </section>
+
+  <section id="booking" class="booking">
+    <h2 class="section-title">Book Your Appointment</h2>
+
+    <div class="booking-wrap">
+      <form>
+        <input type="text" placeholder="First Name*" required>
+        <input type="text" placeholder="Last Name*" required>
+        <input type="email" placeholder="Email Address*" required>
+        <input type="tel" placeholder="Phone Number*" required>
+
+        <select required>
+          <option value="">Select Service*</option>
+          <option>Soft Glam Makeup</option>
+          <option>Full Glam Makeup</option>
+          <option>Bridal Makeup</option>
+          <option>Makeup & Hair Styling</option>
+        </select>
+
+        <select required>
+          <option value="">How did you hear about us?*</option>
+          <option>Instagram</option>
+          <option>Friend</option>
+          <option>Google</option>
+          <option>Other</option>
+        </select>
+
+        <textarea placeholder="Tell us a bit more about your booking*"></textarea>
+
+        <button class="btn" type="submit">Submit</button>
+      </form>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2 class="section-title">Questions</h2>
+
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>How long does makeup usually last?</span>
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          Professional makeup usually lasts 8–12 hours depending on skin type, weather and activity level.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Do you travel to clients?</span>
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          Yes, travel appointments may be available in Miami and nearby areas. Travel fee may apply.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>How far in advance should I book?</span>
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          It is best to book as early as possible, especially for weekends, weddings and special events.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Can I ask a question before booking?</span>
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          Of course. You can contact Angels Makeup through Instagram, WhatsApp or Telegram.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2 class="section-title">Contact</h2>
+    <p>Miami, Florida</p>
+
+    <div class="contact-links">
+      <a class="btn" href="https://www.instagram.com/_.angels_makeup._?igsh=ZGthdHF1ZXp6NGdr" target="_blank">Instagram</a>
+      <a class="btn" href="https://wa.me/17867190778" target="_blank">WhatsApp</a>
+      <a class="btn" href="https://t.me/Angelina_1810" target="_blank">Telegram</a>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Angels Makeup. All rights reserved.
+  </footer>
+
+  <script>
+    const faqItems = document.querySelectorAll(".faq-item");
+
+    faqItems.forEach(item => {
+      item.addEventListener("click", () => {
+        item.classList.toggle("active");
+
+        const symbol = item.querySelector(".faq-question span:last-child");
+        symbol.textContent = item.classList.contains("active") ? "-" : "+";
+      });
+    });
+
+    const form = document.querySelector("form");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      alert("Thank you! Your request has been received. Please contact Angels Makeup through Instagram, WhatsApp or Telegram to confirm your appointment.");
+    });
+  </script>
+
+</body>
+</html>
