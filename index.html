@@ -148,6 +148,8 @@
     .portfolio-item { border: 0; padding: 0; background: none; cursor: zoom-in; overflow: hidden; }
     .portfolio-item img { height: 470px; object-fit: cover; transition: transform .5s; }
     .portfolio-item:hover img { transform: scale(1.035); }
+    .portfolio-item:last-child:nth-child(3n + 1) { grid-column: 1 / -1; }
+    .portfolio-item:last-child:nth-child(3n + 2) { grid-column: span 2; }
 
     .reviews { background: var(--white); }
     .reviews-wrap { max-width: 1100px; margin: auto; display: grid; grid-template-columns: .8fr 1.2fr; gap: 7%; align-items: start; }
@@ -381,6 +383,9 @@
       .service-card:last-child { border-bottom: 0; }
       .portfolio-grid { grid-template-columns: 1fr 1fr; gap: 7px; }
       .portfolio-item img { height: 280px; }
+      .portfolio-item:last-child:nth-child(3n + 1),
+      .portfolio-item:last-child:nth-child(3n + 2) { grid-column: auto; }
+      .portfolio-item:last-child:nth-child(odd) { grid-column: 1 / -1; }
       form, .review-form { grid-template-columns: 1fr; }
       .field-full { grid-column: auto; }
       .rating-field, .review-note, .review-status { grid-column: auto; }
