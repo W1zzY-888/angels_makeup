@@ -49,6 +49,19 @@
     .nav-links { display: flex; gap: 28px; align-items: center; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; }
     .nav-links a { transition: color .25s; }
     .nav-links a:hover { color: var(--rose); }
+    .nav-tools { display: flex; align-items: center; gap: 12px; }
+    .language-select {
+      width: auto;
+      min-height: 36px;
+      padding: 7px 24px 7px 9px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      cursor: pointer;
+    }
 
     .menu-toggle {
       display: none;
@@ -214,6 +227,7 @@
       .navbar { height: 68px; padding: 0 5%; }
       .logo { font-size: 27px; }
       .menu-toggle { display: block; }
+      .nav-tools { margin-left: auto; }
       .nav-links {
         position: fixed;
         inset: 0;
@@ -255,7 +269,6 @@
 <body>
   <header class="navbar">
     <a href="#home" class="logo">Angels Makeup</a>
-    <button class="menu-toggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
     <nav class="nav-links">
       <a href="#about">About</a>
       <a href="#services">Services</a>
@@ -264,6 +277,14 @@
       <a href="#faq">FAQ</a>
       <a href="#contact">Contact</a>
     </nav>
+    <div class="nav-tools">
+      <select class="language-select" aria-label="Choose language">
+        <option value="en">EN</option>
+        <option value="es">ES</option>
+        <option value="ru">RU</option>
+      </select>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    </div>
   </header>
 
   <main>
@@ -398,6 +419,116 @@
     const body = document.body;
     const menuToggle = document.querySelector(".menu-toggle");
     const navLinks = document.querySelectorAll(".nav-links a");
+    const languageSelect = document.querySelector(".language-select");
+
+    const translations = {
+      es: {
+        "About": "Sobre mí", "Services": "Servicios", "Portfolio": "Portafolio", "Book": "Reservar", "Contact": "Contacto",
+        "Miami makeup artist": "Maquilladora en Miami", "Feel like yourself, only more radiant": "Siéntete tú misma, aún más radiante",
+        "Book appointment": "Reservar cita", "View portfolio": "Ver portafolio", "Meet your artist": "Conoce a tu artista",
+        "Hi, I'm Angelina.": "Hola, soy Angelina.",
+        "I'm a professional makeup artist based in Miami. Beauty has been my passion since I was young, and today I get to turn it into something meaningful: helping women feel confident and beautiful in their own skin.": "Soy maquilladora profesional en Miami. La belleza ha sido mi pasión desde pequeña y hoy puedo convertirla en algo especial: ayudar a las mujeres a sentirse seguras y hermosas en su propia piel.",
+        "Known for a \"Photoshop effect\" in real life.": "Conocida por un \"efecto Photoshop\" en la vida real.",
+        "I specialize in glowing skin, soft glam, and enhancing your natural beauty rather than covering it. For me, makeup is not only about appearance. It's about how you feel when you look in the mirror.": "Me especializo en piel luminosa, soft glam y en realzar tu belleza natural. Para mí, el maquillaje no es solo apariencia, sino cómo te sientes al mirarte al espejo.",
+        "Book your appointment": "Reserva tu cita", "What I offer": "Lo que ofrezco", "Beauty Services": "Servicios de belleza",
+        "Every look is tailored to you, your features, and your special occasion.": "Cada look se adapta a ti, a tus rasgos y a tu ocasión especial.",
+        "Soft Glam": "Soft Glam", "Radiant skin, soft definition, and a polished natural finish.": "Piel luminosa, definición suave y un acabado natural impecable.",
+        "Full Glam": "Full Glam", "A statement look with flawless skin and elevated details.": "Un look impactante con piel impecable y detalles sofisticados.",
+        "Bridal Makeup": "Maquillaje de novia", "Timeless, camera-ready beauty designed for your wedding day.": "Belleza atemporal y perfecta para las fotos de tu boda.",
+        "Makeup & Hair": "Maquillaje y peinado", "A complete, beautifully coordinated look for any occasion.": "Un look completo y coordinado para cualquier ocasión.",
+        "Selected work": "Trabajos seleccionados", "Tap any image to see the details up close.": "Toca cualquier imagen para verla de cerca.",
+        "Let's create your look": "Creemos tu look", "Book Appointment": "Reservar cita",
+        "Complete the form and your request will open in WhatsApp, ready to send.": "Completa el formulario y tu solicitud se abrirá en WhatsApp, lista para enviar.",
+        "Select service*": "Selecciona un servicio*", "Soft Glam Makeup": "Maquillaje Soft Glam", "Full Glam Makeup": "Maquillaje Full Glam",
+        "Makeup & Hair Styling": "Maquillaje y peinado", "How did you hear about me?*": "¿Cómo me conociste?*", "Friend": "Amiga/o", "Other": "Otro",
+        "Continue in WhatsApp": "Continuar en WhatsApp", "Your appointment is confirmed after Angelina replies and receives the deposit.": "Tu cita se confirma cuando Angelina responda y reciba el depósito.",
+        "Good to know": "Información útil", "Questions": "Preguntas", "What is your cancellation policy?": "¿Cuál es tu política de cancelación?",
+        "You can cancel your booking, but deposits are non-refundable and non-transferable.": "Puedes cancelar tu reserva, pero los depósitos no son reembolsables ni transferibles.",
+        "Do you provide services for any events?": "¿Ofreces servicios para cualquier evento?", "Yes, I provide services for special occasions, events, photoshoots, and weddings.": "Sí, ofrezco servicios para ocasiones especiales, eventos, sesiones de fotos y bodas.",
+        "Should my hair be wet or dry?": "¿Mi cabello debe estar mojado o seco?", "Hair should be clean and completely dry before styling.": "El cabello debe estar limpio y completamente seco antes del peinado.",
+        "Are lashes included in the price?": "¿Las pestañas están incluidas?", "Yes. False lashes are available upon request at no additional cost. You can also bring your own.": "Sí. Las pestañas postizas están disponibles sin costo adicional. También puedes traer las tuyas.",
+        "What additional fees should I know about?": "¿Qué cargos adicionales debo conocer?", "Clients are responsible for parking fees. Travel, early morning appointments, hair extensions, blowouts, and other add-ons may carry an additional charge.": "Los clientes cubren el estacionamiento. Viajes, citas tempranas, extensiones, secado y otros extras pueden tener un cargo adicional.",
+        "Which forms of payment are accepted?": "¿Qué formas de pago aceptas?", "Payments are accepted through Zelle.": "Se aceptan pagos por Zelle.",
+        "Do you work on holidays?": "¿Trabajas en días festivos?", "Yes. A holiday rate may apply. Please inquire for details.": "Sí. Puede aplicarse una tarifa especial. Consulta los detalles.",
+        "Stay connected": "Conectemos", "Let's Talk": "Hablemos", "Based in Miami, Florida. Available for appointments and special events.": "En Miami, Florida. Disponible para citas y eventos especiales.",
+        "All rights reserved.": "Todos los derechos reservados."
+      },
+      ru: {
+        "About": "Обо мне", "Services": "Услуги", "Portfolio": "Портфолио", "Book": "Запись", "Contact": "Контакты",
+        "Miami makeup artist": "Визажист в Майами", "Feel like yourself, only more radiant": "Оставайся собой, только ещё прекраснее",
+        "Book appointment": "Записаться", "View portfolio": "Смотреть портфолио", "Meet your artist": "Познакомимся",
+        "Hi, I'm Angelina.": "Привет, я Ангелина.",
+        "I'm a professional makeup artist based in Miami. Beauty has been my passion since I was young, and today I get to turn it into something meaningful: helping women feel confident and beautiful in their own skin.": "Я профессиональный визажист из Майами. Красота была моей страстью с детства, а сегодня я помогаю женщинам чувствовать себя уверенно и прекрасно.",
+        "Known for a \"Photoshop effect\" in real life.": "Известна «эффектом фотошопа» в реальной жизни.",
+        "I specialize in glowing skin, soft glam, and enhancing your natural beauty rather than covering it. For me, makeup is not only about appearance. It's about how you feel when you look in the mirror.": "Я специализируюсь на сияющей коже, мягком гламуре и подчёркиваю естественную красоту. Для меня макияж — это не только внешность, но и ваши чувства, когда вы смотрите в зеркало.",
+        "Book your appointment": "Записаться", "What I offer": "Что я предлагаю", "Beauty Services": "Услуги красоты",
+        "Every look is tailored to you, your features, and your special occasion.": "Каждый образ создаётся специально для вас, ваших черт и особого события.",
+        "Soft Glam": "Мягкий гламур", "Radiant skin, soft definition, and a polished natural finish.": "Сияющая кожа, мягкие акценты и безупречный естественный результат.",
+        "Full Glam": "Яркий гламур", "A statement look with flawless skin and elevated details.": "Выразительный образ с безупречной кожей и эффектными деталями.",
+        "Bridal Makeup": "Свадебный макияж", "Timeless, camera-ready beauty designed for your wedding day.": "Утончённый и фотогеничный образ для свадебного дня.",
+        "Makeup & Hair": "Макияж и причёска", "A complete, beautifully coordinated look for any occasion.": "Гармоничный завершённый образ для любого события.",
+        "Selected work": "Избранные работы", "Tap any image to see the details up close.": "Нажмите на фотографию, чтобы рассмотреть её ближе.",
+        "Let's create your look": "Создадим ваш образ", "Book Appointment": "Записаться",
+        "Complete the form and your request will open in WhatsApp, ready to send.": "Заполните форму, и готовая заявка откроется в WhatsApp.",
+        "Select service*": "Выберите услугу*", "Soft Glam Makeup": "Мягкий гламур", "Full Glam Makeup": "Яркий гламур",
+        "Makeup & Hair Styling": "Макияж и причёска", "How did you hear about me?*": "Как вы обо мне узнали?*", "Friend": "От друзей", "Other": "Другое",
+        "Continue in WhatsApp": "Продолжить в WhatsApp", "Your appointment is confirmed after Angelina replies and receives the deposit.": "Запись подтверждается после ответа Ангелины и внесения депозита.",
+        "Good to know": "Полезно знать", "Questions": "Вопросы", "What is your cancellation policy?": "Какие условия отмены записи?",
+        "You can cancel your booking, but deposits are non-refundable and non-transferable.": "Вы можете отменить запись, но депозит не возвращается и не переносится.",
+        "Do you provide services for any events?": "Вы работаете на любых мероприятиях?", "Yes, I provide services for special occasions, events, photoshoots, and weddings.": "Да, я работаю на праздниках, мероприятиях, фотосессиях и свадьбах.",
+        "Should my hair be wet or dry?": "Волосы должны быть мокрыми или сухими?", "Hair should be clean and completely dry before styling.": "Перед укладкой волосы должны быть чистыми и полностью сухими.",
+        "Are lashes included in the price?": "Ресницы включены в стоимость?", "Yes. False lashes are available upon request at no additional cost. You can also bring your own.": "Да. Накладные ресницы предоставляются по запросу без дополнительной платы. Можно принести свои.",
+        "What additional fees should I know about?": "Какие дополнительные расходы возможны?", "Clients are responsible for parking fees. Travel, early morning appointments, hair extensions, blowouts, and other add-ons may carry an additional charge.": "Клиент оплачивает парковку. Выезд, ранняя запись, наращивание волос, укладка феном и другие дополнения могут оплачиваться отдельно.",
+        "Which forms of payment are accepted?": "Какие способы оплаты принимаются?", "Payments are accepted through Zelle.": "Оплата принимается через Zelle.",
+        "Do you work on holidays?": "Вы работаете в праздничные дни?", "Yes. A holiday rate may apply. Please inquire for details.": "Да. В праздничные дни может действовать особый тариф. Уточните подробности.",
+        "Stay connected": "Будем на связи", "Let's Talk": "Свяжитесь со мной", "Based in Miami, Florida. Available for appointments and special events.": "Майами, Флорида. Доступна запись на личные встречи и особые мероприятия.",
+        "All rights reserved.": "Все права защищены."
+      }
+    };
+
+    const placeholderTranslations = {
+      es: {
+        "First name*": "Nombre*", "Last name*": "Apellido*", "Phone number*": "Número de teléfono*",
+        "Tell me about the occasion, desired time, and location": "Cuéntame sobre la ocasión, hora y ubicación"
+      },
+      ru: {
+        "First name*": "Имя*", "Last name*": "Фамилия*", "Phone number*": "Номер телефона*",
+        "Tell me about the occasion, desired time, and location": "Расскажите о событии, желаемом времени и месте"
+      }
+    };
+
+    const textNodes = [];
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+      const key = node.textContent.trim();
+      if (key) {
+        node.originalText = key;
+        textNodes.push(node);
+      }
+    }
+    document.querySelectorAll("[placeholder]").forEach(element => {
+      element.dataset.originalPlaceholder = element.placeholder;
+    });
+
+    function setLanguage(language) {
+      const dictionary = translations[language] || {};
+      textNodes.forEach(node => {
+        const translated = dictionary[node.originalText] || node.originalText;
+        const leading = node.textContent.match(/^\s*/)[0];
+        const trailing = node.textContent.match(/\s*$/)[0];
+        node.textContent = leading + translated + trailing;
+      });
+      document.querySelectorAll("[placeholder]").forEach(element => {
+        element.placeholder = placeholderTranslations[language]?.[element.dataset.originalPlaceholder] || element.dataset.originalPlaceholder;
+      });
+      document.documentElement.lang = language;
+      languageSelect.value = language;
+      localStorage.setItem("angels-language", language);
+    }
+
+    languageSelect.addEventListener("change", event => setLanguage(event.target.value));
+    setLanguage(localStorage.getItem("angels-language") || "en");
 
     menuToggle.addEventListener("click", () => {
       body.classList.toggle("menu-open");
@@ -441,16 +572,28 @@
     document.querySelector("#booking-form").addEventListener("submit", event => {
       event.preventDefault();
       const data = new FormData(event.currentTarget);
-      const date = new Date(data.get("date") + "T12:00:00").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+      const language = languageSelect.value;
+      const locales = { en: "en-US", es: "es-US", ru: "ru-RU" };
+      const date = new Date(data.get("date") + "T12:00:00").toLocaleDateString(locales[language], { month: "long", day: "numeric", year: "numeric" });
+      const messageIntro = {
+        en: "Hi Angelina! I'd like to request an appointment.",
+        es: "¡Hola Angelina! Me gustaría solicitar una cita.",
+        ru: "Привет, Ангелина! Я хотела бы записаться."
+      };
+      const labels = {
+        en: { name: "Name", phone: "Phone", date: "Preferred date", service: "Service", source: "Found you through", details: "Details", empty: "Not specified" },
+        es: { name: "Nombre", phone: "Teléfono", date: "Fecha preferida", service: "Servicio", source: "Te encontré por", details: "Detalles", empty: "No especificado" },
+        ru: { name: "Имя", phone: "Телефон", date: "Желаемая дата", service: "Услуга", source: "Как узнала", details: "Детали", empty: "Не указано" }
+      }[language];
       const message = [
-        "Hi Angelina! I'd like to request an appointment.",
+        messageIntro[language],
         "",
-        `Name: ${data.get("firstName")} ${data.get("lastName")}`,
-        `Phone: ${data.get("phone")}`,
-        `Preferred date: ${date}`,
-        `Service: ${data.get("service")}`,
-        `Found you through: ${data.get("source")}`,
-        `Details: ${data.get("details") || "Not specified"}`
+        `${labels.name}: ${data.get("firstName")} ${data.get("lastName")}`,
+        `${labels.phone}: ${data.get("phone")}`,
+        `${labels.date}: ${date}`,
+        `${labels.service}: ${data.get("service")}`,
+        `${labels.source}: ${data.get("source")}`,
+        `${labels.details}: ${data.get("details") || labels.empty}`
       ].join("\n");
       window.open(`https://wa.me/17867190778?text=${encodeURIComponent(message)}`, "_blank", "noopener");
     });
