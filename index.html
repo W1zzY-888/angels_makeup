@@ -180,6 +180,7 @@
     .field-full { grid-column: 1 / -1; }
     input, select, textarea {
       width: 100%;
+      min-width: 0;
       min-height: 55px;
       padding: 15px 16px;
       border: 1px solid #655e5a;
@@ -188,6 +189,25 @@
       font-size: 13px;
       outline: none;
       transition: border-color .2s;
+    }
+    input[type="date"] {
+      display: block;
+      max-width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      background-color: transparent;
+      border-radius: 0;
+      color: var(--white);
+      color-scheme: dark;
+    }
+    input[type="date"]::-webkit-date-and-time-value {
+      min-height: 24px;
+      margin: 0;
+      text-align: left;
+    }
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+      opacity: .75;
     }
     input:focus, select:focus, textarea:focus { border-color: #d8aaa4; }
     input::placeholder, textarea::placeholder { color: #bdb6b2; }
@@ -422,7 +442,7 @@
           <input name="firstName" type="text" placeholder="First name*" autocomplete="given-name" required>
           <input name="lastName" type="text" placeholder="Last name*" autocomplete="family-name" required>
           <input name="phone" type="tel" placeholder="Phone number*" autocomplete="tel" required>
-          <input name="date" type="date" aria-label="Preferred date" required>
+          <input name="date" type="date" aria-label="Preferred date" title="Preferred date" required>
           <select name="service" required>
             <option value="">Select service*</option>
             <option>Soft Glam Makeup</option>
