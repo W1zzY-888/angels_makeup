@@ -1,317 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Angels Makeup - professional soft glam, bridal makeup and hair styling in Miami, Florida.">
   <title>Angels Makeup | Makeup Artist in Miami</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
+    :root {
+      --paper: #f8f5f2;
+      --white: #fff;
+      --ink: #302d2c;
+      --muted: #6f6965;
+      --rose: #b88c86;
+      --line: #e5d9d3;
+      --serif: "Cormorant Garamond", serif;
+      --sans: "Montserrat", sans-serif;
     }
 
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background: #f8f5f2;
-      color: #3f3f3f;
-      line-height: 1.6;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    img {
-      width: 100%;
-      display: block;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body { font-family: var(--sans); background: var(--paper); color: var(--ink); line-height: 1.7; }
+    body.menu-open, body.lightbox-open { overflow: hidden; }
+    a { text-decoration: none; color: inherit; }
+    button, input, select, textarea { font: inherit; }
+    button { color: inherit; }
+    img { width: 100%; display: block; }
 
     .navbar {
       position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 18px 8%;
+      inset: 0 0 auto;
+      height: 78px;
+      padding: 0 7%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(248, 245, 242, 0.95);
+      background: rgba(248, 245, 242, .92);
+      backdrop-filter: blur(12px);
       z-index: 1000;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+      border-bottom: 1px solid rgba(229, 217, 211, .7);
     }
 
-    .logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 34px;
-      letter-spacing: 1px;
-    }
+    .logo { font-family: var(--serif); font-size: 32px; font-weight: 500; }
+    .nav-links { display: flex; gap: 28px; align-items: center; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; }
+    .nav-links a { transition: color .25s; }
+    .nav-links a:hover { color: var(--rose); }
 
-    .nav-links {
-      display: flex;
-      gap: 24px;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    .menu-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      position: relative;
+      z-index: 1001;
     }
+    .menu-toggle span, .menu-toggle::before, .menu-toggle::after {
+      content: "";
+      position: absolute;
+      width: 22px;
+      height: 1px;
+      left: 10px;
+      background: var(--ink);
+      transition: .3s;
+    }
+    .menu-toggle::before { top: 14px; }
+    .menu-toggle span { top: 21px; }
+    .menu-toggle::after { top: 28px; }
+    .menu-open .menu-toggle::before { transform: translateY(7px) rotate(45deg); }
+    .menu-open .menu-toggle span { opacity: 0; }
+    .menu-open .menu-toggle::after { transform: translateY(-7px) rotate(-45deg); }
 
     .hero {
-      min-height: 100vh;
-      background:
-        linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.55)),
-        url("images/work6.jpg") center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      min-height: min(900px, 100vh);
+      background: linear-gradient(rgba(255,255,255,.28), rgba(255,255,255,.62)), url("images/work6.jpg") center 25%/cover no-repeat;
+      display: grid;
+      place-items: center;
       text-align: center;
-      padding: 120px 8% 60px;
+      padding: 130px 8% 70px;
     }
-
-    .hero h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 92px;
-      font-weight: 400;
-    }
-
-    .hero p {
-      margin-top: 10px;
-      font-size: 18px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
-
-    .hero-buttons {
-      margin-top: 35px;
-      display: flex;
-      gap: 18px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+    .hero-content { max-width: 900px; }
+    .eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--rose); }
+    .hero h1 { font-family: var(--serif); font-size: clamp(70px, 11vw, 132px); line-height: .9; font-weight: 500; margin: 18px 0 24px; }
+    .hero p { font-size: 13px; letter-spacing: 3px; text-transform: uppercase; }
+    .hero-buttons { margin-top: 36px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
     .btn {
-      padding: 14px 34px;
-      border: 1px solid #3f3f3f;
+      min-height: 48px;
+      padding: 13px 28px;
+      border: 1px solid var(--ink);
       background: transparent;
-      font-size: 13px;
+      font-size: 11px;
+      font-weight: 500;
       letter-spacing: 2px;
       text-transform: uppercase;
-      transition: 0.3s;
+      transition: background .25s, color .25s, border-color .25s;
       cursor: pointer;
-      display: inline-block;
-    }
-
-    .btn:hover {
-      background: #3f3f3f;
-      color: #fff;
-    }
-
-    .btn-light {
-      background: #fff;
-    }
-
-    section {
-      padding: 90px 8%;
-    }
-
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      text-align: center;
-      font-size: 64px;
-      font-weight: 400;
-      margin-bottom: 55px;
-    }
-
-    .about {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 55px;
+      display: inline-flex;
       align-items: center;
+      justify-content: center;
     }
+    .btn:hover, .btn-dark { background: var(--ink); color: var(--white); }
+    .btn-dark:hover { background: var(--rose); border-color: var(--rose); }
+    .btn-light { background: rgba(255,255,255,.85); }
 
-    .about img {
-      height: 620px;
-      object-fit: cover;
-      object-position: center;
-    }
+    section { padding: 110px 7%; }
+    .section-head { max-width: 640px; margin: 0 auto 55px; text-align: center; }
+    .section-title { font-family: var(--serif); font-size: clamp(50px, 7vw, 76px); font-weight: 500; line-height: 1; margin-top: 10px; }
+    .section-copy { margin-top: 16px; color: var(--muted); font-size: 14px; }
 
-    .about-text h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 44px;
-      font-weight: 400;
-      margin-bottom: 20px;
-    }
+    .about { max-width: 1180px; margin: auto; display: grid; grid-template-columns: .9fr 1fr; gap: 8%; align-items: center; }
+    .about-photo { position: relative; }
+    .about-photo::after { content: ""; position: absolute; inset: 18px -18px -18px 18px; border: 1px solid var(--rose); z-index: -1; }
+    .about img { height: 650px; object-fit: cover; object-position: center; }
+    .about-text h2 { font-family: var(--serif); font-size: clamp(48px, 6vw, 72px); font-weight: 500; line-height: 1; margin: 12px 0 25px; }
+    .about-text p { margin-bottom: 17px; color: var(--muted); font-size: 14px; }
+    .about-text strong { color: var(--ink); font-weight: 500; }
+    .about-text .btn { margin-top: 14px; }
 
-    .about-text p {
-      margin-bottom: 16px;
-      font-size: 16px;
-    }
+    .services { background: var(--white); }
+    .services-grid { max-width: 1200px; margin: auto; display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); }
+    .service-card { padding: 42px 28px; text-align: center; border-right: 1px solid var(--line); }
+    .service-card:last-child { border-right: 0; }
+    .service-number { color: var(--rose); font-family: var(--serif); font-size: 22px; }
+    .service-card h3 { font-family: var(--serif); font-size: 32px; line-height: 1.1; font-weight: 500; margin: 18px 0 12px; }
+    .service-card p { font-size: 12px; color: var(--muted); }
 
-    .services {
-      background: #fff;
-    }
+    .portfolio-grid { max-width: 1250px; margin: auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .portfolio-item { border: 0; padding: 0; background: none; cursor: zoom-in; overflow: hidden; }
+    .portfolio-item img { height: 470px; object-fit: cover; transition: transform .5s; }
+    .portfolio-item:hover img { transform: scale(1.035); }
 
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 22px;
-    }
-
-    .service-card {
-      background: #f8f5f2;
-      padding: 34px 24px;
-      text-align: center;
-      border: 1px solid #eadfd6;
-    }
-
-    .service-card h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 34px;
-      font-weight: 400;
-      margin-bottom: 12px;
-    }
-
-    .service-card span {
-      display: block;
-      margin-top: 16px;
-      font-weight: 500;
-    }
-
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .portfolio-grid img {
-      height: 430px;
-      object-fit: cover;
-      transition: 0.3s;
-    }
-
-    .portfolio-grid img:hover {
-      transform: scale(1.02);
-    }
-
-    .booking {
-      background: #fff;
-    }
-.booking-wrap {
-      max-width: 760px;
-      margin: 0 auto;
-    }
-
-    form {
-      display: grid;
-      gap: 18px;
-    }
-
+    .booking { background: var(--ink); color: var(--white); }
+    .booking .eyebrow { color: #d8aaa4; }
+    .booking .section-copy { color: #c5bfbc; }
+    .booking-wrap { max-width: 850px; margin: auto; }
+    form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .field-full { grid-column: 1 / -1; }
     input, select, textarea {
       width: 100%;
-      padding: 15px;
-      border: 1px solid #ccc;
-      background: #fff;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 15px;
+      min-height: 55px;
+      padding: 15px 16px;
+      border: 1px solid #655e5a;
+      background: transparent;
+      color: var(--white);
+      font-size: 13px;
+      outline: none;
+      transition: border-color .2s;
     }
+    input:focus, select:focus, textarea:focus { border-color: #d8aaa4; }
+    input::placeholder, textarea::placeholder { color: #bdb6b2; }
+    select option { color: var(--ink); background: var(--white); }
+    textarea { height: 125px; resize: vertical; }
+    .booking .btn { border-color: var(--white); color: var(--ink); background: var(--white); }
+    .booking .btn:hover { color: var(--white); background: var(--rose); border-color: var(--rose); }
+    .form-note { grid-column: 1 / -1; color: #bdb6b2; font-size: 11px; text-align: center; }
 
-    textarea {
-      height: 120px;
-      resize: none;
-    }
-
-    .faq {
-      max-width: 850px;
-      margin: 0 auto;
-    }
-
-    .faq-item {
-      border-bottom: 1px solid #d8c7b5;
-      padding: 18px 0;
-    }
-
+    .faq { max-width: 850px; margin: auto; }
+    .faq-item { border-bottom: 1px solid var(--line); }
     .faq-question {
+      width: 100%;
+      border: 0;
+      background: none;
+      padding: 22px 0;
       display: flex;
+      gap: 20px;
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
-      font-size: 18px;
+      text-align: left;
+      font-size: 14px;
+    }
+    .faq-symbol { color: var(--rose); font-size: 22px; font-weight: 300; }
+    .faq-answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s; color: var(--muted); font-size: 13px; }
+    .faq-answer > div { overflow: hidden; }
+    .faq-answer p { padding: 0 45px 22px 0; }
+    .faq-item.active .faq-answer { grid-template-rows: 1fr; }
+
+    .contact { padding-top: 90px; padding-bottom: 90px; text-align: center; background: var(--white); }
+    .contact .section-head { margin-bottom: 28px; }
+    .contact-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    footer { text-align: center; padding: 32px 20px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(25,23,22,.94);
+      z-index: 2000;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      opacity: 0;
+      visibility: hidden;
+      transition: .25s;
+    }
+    .lightbox.open { opacity: 1; visibility: visible; }
+    .lightbox img { max-width: min(92vw, 900px); max-height: 88vh; width: auto; object-fit: contain; }
+    .lightbox-close { position: absolute; top: 20px; right: 25px; border: 0; background: none; color: var(--white); font-size: 36px; cursor: pointer; }
+
+    @media (max-width: 980px) {
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .service-card:nth-child(2) { border-right: 0; }
+      .service-card:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .portfolio-item img { height: 390px; }
     }
 
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: 0.4s;
-      color: #666;
-      padding-right: 30px;
-    }
-
-    .faq-item.active .faq-answer {
-      max-height: 160px;
-      margin-top: 12px;
-    }
-
-    .contact {
-      text-align: center;
-      background: #fff;
-    }
-
-    .contact-links {
-      display: flex;
-      justify-content: center;
-      gap: 18px;
-      flex-wrap: wrap;
-      margin-top: 25px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 35px;
-      font-size: 13px;
-      color: #777;
-    }
-
-    @media (max-width: 900px) {
+    @media (max-width: 760px) {
+      .navbar { height: 68px; padding: 0 5%; }
+      .logo { font-size: 27px; }
+      .menu-toggle { display: block; }
       .nav-links {
-        display: none;
+        position: fixed;
+        inset: 0;
+        background: var(--paper);
+        flex-direction: column;
+        justify-content: center;
+        gap: 28px;
+        font-size: 13px;
+        opacity: 0;
+        visibility: hidden;
+        transition: .3s;
       }
+      .menu-open .nav-links { opacity: 1; visibility: visible; }
+      .hero { min-height: 92vh; padding-top: 105px; }
+      .hero h1 { font-size: clamp(68px, 25vw, 92px); }
+      .hero p { font-size: 10px; letter-spacing: 2px; }
+      section { padding: 78px 5%; }
+      .section-head { margin-bottom: 38px; }
+      .about { grid-template-columns: 1fr; gap: 55px; }
+      .about img { height: 520px; }
+      .about-photo::after { inset: 12px -8px -12px 12px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card, .service-card:nth-child(2) { border-right: 0; border-bottom: 1px solid var(--line); }
+      .service-card:last-child { border-bottom: 0; }
+      .portfolio-grid { grid-template-columns: 1fr 1fr; gap: 7px; }
+      .portfolio-item img { height: 280px; }
+      form { grid-template-columns: 1fr; }
+      .field-full { grid-column: auto; }
+    }
 
-      .hero h1 {
-        font-size: 62px;
-      }
-
-      .about {
-        grid-template-columns: 1fr;
-      }
-
-      .services-grid,
-      .portfolio-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .section-title {
-        font-size: 48px;
-      }
-
-      .about img,
-      .portfolio-grid img {
-        height: auto;
-      }
+    @media (max-width: 430px) {
+      .hero-buttons, .hero-buttons .btn, .contact-links, .contact-links .btn { width: 100%; }
+      .hero h1 { font-size: 66px; }
+      .portfolio-item img { height: 235px; }
+      .about img { height: 440px; }
     }
   </style>
 </head>
-
 <body>
-
   <header class="navbar">
-    <a href="#" class="logo">Angels Makeup</a>
+    <a href="#home" class="logo">Angels Makeup</a>
+    <button class="menu-toggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
     <nav class="nav-links">
       <a href="#about">About</a>
+      <a href="#services">Services</a>
       <a href="#portfolio">Portfolio</a>
       <a href="#booking">Book</a>
       <a href="#faq">FAQ</a>
@@ -319,195 +266,194 @@
     </nav>
   </header>
 
-  <section class="hero">
-    <div>
-      <h1>Angels Makeup</h1>
-      <p>Professional Makeup Artist | Miami, Florida</p>
-      <div class="hero-buttons">
-        <a class="btn btn-light" href="#booking">Book Now</a>
-        <a class="btn btn-light" href="#portfolio">View Portfolio</a>
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <span class="eyebrow">Miami makeup artist</span>
+        <h1>Angels Makeup</h1>
+        <p>Feel like yourself, only more radiant</p>
+        <div class="hero-buttons">
+          <a class="btn btn-dark" href="#booking">Book appointment</a>
+          <a class="btn btn-light" href="#portfolio">View portfolio</a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="about">
-    <h2 class="section-title">About Me</h2>
-    <div class="about">
-      <div>
-        <img src="images/angelina.jpg" alt="Angelina from Angels Makeup">
+    <section id="about">
+      <div class="about">
+        <div class="about-photo">
+          <img src="images/angelina.jpg" alt="Angelina, makeup artist at Angels Makeup">
+        </div>
+        <div class="about-text">
+          <span class="eyebrow">Meet your artist</span>
+          <h2>Hi, I'm Angelina.</h2>
+          <p>I'm a professional makeup artist based in Miami. Beauty has been my passion since I was young, and today I get to turn it into something meaningful: helping women feel confident and beautiful in their own skin.</p>
+          <p><strong>Known for a "Photoshop effect" in real life.</strong></p>
+          <p>I specialize in glowing skin, soft glam, and enhancing your natural beauty rather than covering it. For me, makeup is not only about appearance. It's about how you feel when you look in the mirror.</p>
+          <a class="btn" href="#booking">Book your appointment</a>
+        </div>
       </div>
-      <div class="about-text">
-        <h3>Hi, I'm Angelina.</h3>
-<p>I'm a makeup artist based in Miami.</p>
-<p>I've loved beauty since I was young, and today I get to turn that passion into something meaningful: helping women feel confident, soft, and beautiful in their own skin.</p>
-<p><strong>Known for "photoshop effect" in real life 💄</strong></p>
-<p>I specialize in glowing skin, soft glam, and enhancing your natural beauty rather than covering it. For me, makeup is not just about appearance — it's about how you feel when you look in the mirror ✨</p>
-        <a class="btn" href="#booking">Book Your Appointment</a>
+    </section>
+
+    <section id="services" class="services">
+      <div class="section-head">
+        <span class="eyebrow">What I offer</span>
+        <h2 class="section-title">Beauty Services</h2>
+        <p class="section-copy">Every look is tailored to you, your features, and your special occasion.</p>
       </div>
-    </div>
-  </section>
+      <div class="services-grid">
+        <article class="service-card"><span class="service-number">01</span><h3>Soft Glam</h3><p>Radiant skin, soft definition, and a polished natural finish.</p></article>
+        <article class="service-card"><span class="service-number">02</span><h3>Full Glam</h3><p>A statement look with flawless skin and elevated details.</p></article>
+        <article class="service-card"><span class="service-number">03</span><h3>Bridal Makeup</h3><p>Timeless, camera-ready beauty designed for your wedding day.</p></article>
+        <article class="service-card"><span class="service-number">04</span><h3>Makeup & Hair</h3><p>A complete, beautifully coordinated look for any occasion.</p></article>
+      </div>
+    </section>
 
-  <section id="portfolio">
-    <h2 class="section-title">Portfolio</h2>
+    <section id="portfolio">
+      <div class="section-head">
+        <span class="eyebrow">Selected work</span>
+        <h2 class="section-title">Portfolio</h2>
+        <p class="section-copy">Tap any image to see the details up close.</p>
+      </div>
+      <div class="portfolio-grid">
+        <button class="portfolio-item"><img src="images/work1.jpg" alt="Soft glam makeup look"></button>
+        <button class="portfolio-item"><img src="images/work2.jpg" alt="Radiant makeup look"></button>
+        <button class="portfolio-item"><img src="images/work3.jpg" alt="Elegant makeup look"></button>
+        <button class="portfolio-item"><img src="images/work4.jpeg" alt="Natural glam makeup look"></button>
+        <button class="portfolio-item"><img src="images/work5.jpg" alt="Full glam makeup look"></button>
+        <button class="portfolio-item"><img src="images/work6.jpg" alt="Polished makeup look"></button>
+      </div>
+    </section>
 
-    <div class="portfolio-grid">
-<img src="images/work1.jpg" alt="Makeup work 1">
-      <img src="images/work2.jpg" alt="Makeup work 2">
-      <img src="images/work3.jpg" alt="Makeup work 3">
-      <img src="images/work4.jpg" alt="Makeup work 4">
-      <img src="images/work5.jpg" alt="Makeup work 5">
-      <img src="images/work6.jpg" alt="Makeup work 6">
-    </div>
-  </section>
+    <section id="booking" class="booking">
+      <div class="section-head">
+        <span class="eyebrow">Let's create your look</span>
+        <h2 class="section-title">Book Appointment</h2>
+        <p class="section-copy">Complete the form and your request will open in WhatsApp, ready to send.</p>
+      </div>
+      <div class="booking-wrap">
+        <form id="booking-form">
+          <input name="firstName" type="text" placeholder="First name*" autocomplete="given-name" required>
+          <input name="lastName" type="text" placeholder="Last name*" autocomplete="family-name" required>
+          <input name="phone" type="tel" placeholder="Phone number*" autocomplete="tel" required>
+          <input name="date" type="date" aria-label="Preferred date" required>
+          <select name="service" required>
+            <option value="">Select service*</option>
+            <option>Soft Glam Makeup</option>
+            <option>Full Glam Makeup</option>
+            <option>Bridal Makeup</option>
+            <option>Makeup & Hair Styling</option>
+          </select>
+          <select name="source" required>
+            <option value="">How did you hear about me?*</option>
+            <option>Instagram</option>
+            <option>Friend</option>
+            <option>Google</option>
+            <option>Other</option>
+          </select>
+          <textarea class="field-full" name="details" placeholder="Tell me about the occasion, desired time, and location"></textarea>
+          <button class="btn field-full" type="submit">Continue in WhatsApp</button>
+          <p class="form-note">Your appointment is confirmed after Angelina replies and receives the deposit.</p>
+        </form>
+      </div>
+    </section>
 
-  <section id="booking" class="booking">
-    <h2 class="section-title">Book Your Appointment</h2>
+    <section id="faq">
+      <div class="section-head">
+        <span class="eyebrow">Good to know</span>
+        <h2 class="section-title">Questions</h2>
+      </div>
+      <div class="faq">
+        <article class="faq-item"><button class="faq-question" aria-expanded="false"><span>What is your cancellation policy?</span><span class="faq-symbol">+</span></button><div class="faq-answer"><div><p>You can cancel your booking, but deposits are non-refundable and non-transferable.</p></div></div></article>
+        <article class="faq-item"><button class="faq-question" aria-expanded="false"><span>Do you provide services for any events?</span><span class="faq-symbol">+</span></button><div class="faq-answer"><div><p>Yes, I provide services for special occasions, events, photoshoots, and weddings.</p></div></div></article>
+        <article class="faq-item"><button class="faq-question" aria-expanded="false"><span>Should my hair be wet or dry?</span><span class="faq-symbol">+</span></button><div class="faq-answer"><div><p>Hair should be clean and completely dry before styling.</p></div></div></article>
+        <article class="faq-item"><button class="faq-question" aria-expanded="false"><span>Are lashes included in the price?</span><span class="faq-symbol">+</span></button><div class="faq-answer"><div><p>Yes. False lashes are available upon request at no additional cost. You can also bring your own.</p></div></div></article>
+        <article class="faq-item"><button class="faq-question" aria-expanded="false"><span>What additional fees should I know about?</span><span class="faq-symbol">+</span></button><div class="faq-answer"><div><p>Clients are responsible for parking fees. Travel, early morning appointments, hair extensions, blowouts, and other add-ons may carry an additional charge.</p></div></div></article>
+        <article class="faq-item"><button class="faq-question" aria-expanded="false"><span>Which forms of payment are accepted?</span><span class="faq-symbol">+</span></button><div class="faq-answer"><div><p>Payments are accepted through Zelle.</p></div></div></article>
+        <article class="faq-item"><button class="faq-question" aria-expanded="false"><span>Do you work on holidays?</span><span class="faq-symbol">+</span></button><div class="faq-answer"><div><p>Yes. A holiday rate may apply. Please inquire for details.</p></div></div></article>
+      </div>
+    </section>
 
-    <div class="booking-wrap">
-      <form>
-        <input type="text" placeholder="First Name*" required>
-        <input type="text" placeholder="Last Name*" required>
-        <input type="email" placeholder="Email Address*" required>
-        <input type="tel" placeholder="Phone Number*" required>
+    <section id="contact" class="contact">
+      <div class="section-head">
+        <span class="eyebrow">Stay connected</span>
+        <h2 class="section-title">Let's Talk</h2>
+        <p class="section-copy">Based in Miami, Florida. Available for appointments and special events.</p>
+      </div>
+      <div class="contact-links">
+        <a class="btn" href="https://www.instagram.com/_.angels_makeup._?igsh=ZGthdHF1ZXp6NGdr" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn btn-dark" href="https://wa.me/17867190778" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </section>
+  </main>
 
-        <select required>
-          <option value="">Select Service*</option>
-          <option>Soft Glam Makeup</option>
-          <option>Full Glam Makeup</option>
-          <option>Bridal Makeup</option>
-          <option>Makeup & Hair Styling</option>
-        </select>
+  <footer>&copy; 2026 Angels Makeup. All rights reserved.</footer>
 
-        <select required>
-          <option value="">How did you hear about us?*</option>
-          <option>Instagram</option>
-          <option>Friend</option>
-          <option>Google</option>
-          <option>Other</option>
-        </select>
-
-        <textarea placeholder="Tell us a bit more about your booking*"></textarea>
-
-        <button class="btn" type="submit">Submit</button>
-      </form>
-    </div>
-  </section>
-
-  <section id="faq">
-    <h2 class="section-title">Questions</h2>
-
-    <div class="faq">
-
-        <div class="faq-item">
-            <div class="faq-question">
-                <span>What is your cancelation policy?</span>
-                <span>+</span>
-            </div>
-            <div class="faq-answer">
-                You can cancel your booking. But deposits are not refundable or transferable.
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question">
-                <span>Do you provide services for any events?</span>
-                <span>+</span>
-            </div>
-            <div class="faq-answer">
-                Yes, I provide services for any special occasion, event, or wedding.
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question">
-                <span>Should my hair be wet or dry?</span>
-                <span>+</span>
-            </div>
-            <div class="faq-answer">
-                Hair should be clean and dry for the styling.
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question">
-                <span>Are lashes included in the price?</span>
-                <span>+</span>
-            </div>
-            <div class="faq-answer">
-                Yes. Fake lashes for bride and bridal party will be provided upon request with no cost. You can also use your own lashes if desired.
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question">
-                <span>What additional fees should I know about?</span>
-                <span>+</span>
-            </div>
-            <div class="faq-answer">
-                1. Clients are responsible for any parking fees.<br><br>
-
-                2. Depending on the location and getting-ready time, travel fees and early morning fees may apply.<br><br>
-
-                3. Add-ons such as hair extension placement, styling, and blowouts will be charged additionally.
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question">
-                <span>Which forms of payment are accepted?</span>
-                <span>+</span>
-            </div>
-            <div class="faq-answer">
-                Payments are accepted through Zelle.
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question">
-                <span>Do you work on holidays?</span>
-                <span>+</span>
-            </div>
-            <div class="faq-answer">
-                Yes, the double rate may apply. Please inquire for more information.
-            </div>
-        </div>
-
-    </div>
-</section>
-
-  <section id="contact" class="contact">
-    <h2 class="section-title">Contact</h2>
-    <p>Miami, Florida</p>
-
-    <div class="contact-links">
-      <a class="btn" href="https://www.instagram.com/_.angels_makeup._?igsh=ZGthdHF1ZXp6NGdr" target="_blank">Instagram</a>
-      <a class="btn" href="https://wa.me/17867190778" target="_blank">WhatsApp</a>
-    </div>
-  </section>
-
-  <footer>
-    © 2026 Angels Makeup. All rights reserved.
-  </footer>
+  <div class="lightbox" aria-hidden="true">
+    <button class="lightbox-close" aria-label="Close image">&times;</button>
+    <img src="" alt="">
+  </div>
 
   <script>
-    const faqItems = document.querySelectorAll(".faq-item");
+    const body = document.body;
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelectorAll(".nav-links a");
 
-    faqItems.forEach(item => {
-      item.addEventListener("click", () => {
-        item.classList.toggle("active");
+    menuToggle.addEventListener("click", () => {
+      body.classList.toggle("menu-open");
+      menuToggle.setAttribute("aria-expanded", body.classList.contains("menu-open"));
+    });
+    navLinks.forEach(link => link.addEventListener("click", () => {
+      body.classList.remove("menu-open");
+      menuToggle.setAttribute("aria-expanded", "false");
+    }));
 
-        const symbol = item.querySelector(".faq-question span:last-child");
-        symbol.textContent = item.classList.contains("active") ? "-" : "+";
+    document.querySelectorAll(".faq-question").forEach(question => {
+      question.addEventListener("click", () => {
+        const item = question.closest(".faq-item");
+        const isOpen = item.classList.toggle("active");
+        question.setAttribute("aria-expanded", isOpen);
+        question.querySelector(".faq-symbol").textContent = isOpen ? "\u2212" : "+";
       });
     });
 
-    const form = document.querySelector("form");
+    const lightbox = document.querySelector(".lightbox");
+    const lightboxImage = lightbox.querySelector("img");
+    document.querySelectorAll(".portfolio-item").forEach(item => {
+      item.addEventListener("click", () => {
+        const image = item.querySelector("img");
+        lightboxImage.src = image.src;
+        lightboxImage.alt = image.alt;
+        lightbox.classList.add("open");
+        lightbox.setAttribute("aria-hidden", "false");
+        body.classList.add("lightbox-open");
+      });
+    });
+    function closeLightbox() {
+      lightbox.classList.remove("open");
+      lightbox.setAttribute("aria-hidden", "true");
+      body.classList.remove("lightbox-open");
+    }
+    lightbox.querySelector(".lightbox-close").addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", event => { if (event.target === lightbox) closeLightbox(); });
+    document.addEventListener("keydown", event => { if (event.key === "Escape") closeLightbox(); });
 
-    form.addEventListener("submit", function(event) {
+    document.querySelector("#booking-form").addEventListener("submit", event => {
       event.preventDefault();
-      alert("Thank you! Your request has been received. Please contact Angels Makeup through Instagram or WhatsApp to confirm your appointment.");
+      const data = new FormData(event.currentTarget);
+      const date = new Date(data.get("date") + "T12:00:00").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+      const message = [
+        "Hi Angelina! I'd like to request an appointment.",
+        "",
+        `Name: ${data.get("firstName")} ${data.get("lastName")}`,
+        `Phone: ${data.get("phone")}`,
+        `Preferred date: ${date}`,
+        `Service: ${data.get("service")}`,
+        `Found you through: ${data.get("source")}`,
+        `Details: ${data.get("details") || "Not specified"}`
+      ].join("\n");
+      window.open(`https://wa.me/17867190778?text=${encodeURIComponent(message)}`, "_blank", "noopener");
     });
   </script>
-
 </body>
 </html>
