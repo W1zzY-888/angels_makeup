@@ -209,6 +209,19 @@
       cursor: pointer;
       opacity: .75;
     }
+    .date-field { position: relative; display: block; min-width: 0; }
+    .date-field input { cursor: pointer; }
+    .date-placeholder {
+      position: absolute;
+      inset: 0;
+      padding: 15px 16px;
+      display: flex;
+      align-items: center;
+      color: #bdb6b2;
+      font-size: 13px;
+      pointer-events: none;
+    }
+    .date-field input:valid + .date-placeholder { display: none; }
     .booking select {
       display: block;
       max-width: 100%;
@@ -479,7 +492,10 @@
           <input name="firstName" type="text" placeholder="First name*" autocomplete="given-name" required>
           <input name="lastName" type="text" placeholder="Last name*" autocomplete="family-name" required>
           <input name="phone" type="tel" placeholder="Phone number*" autocomplete="tel" required>
-          <input name="date" type="date" aria-label="Preferred date" title="Preferred date" required>
+          <label class="date-field">
+            <input name="date" type="date" aria-label="Preferred date" title="Preferred date" required>
+            <span class="date-placeholder">Select a date*</span>
+          </label>
           <select name="service" required>
             <option value="">Select service*</option>
             <option>Soft Glam Makeup</option>
@@ -566,7 +582,7 @@
         "Your rating*": "Tu valoración*", "Send review in WhatsApp": "Enviar reseña por WhatsApp", "Nothing is published automatically. Angelina will ask before sharing your review.": "Nada se publica automáticamente. Angelina pedirá permiso antes de compartir tu reseña.", "Thank you! WhatsApp is opening with your review.": "¡Gracias! WhatsApp se abrirá con tu reseña.",
         "Let's create your look": "Creemos tu look", "Book Appointment": "Reservar cita",
         "Complete the form and your request will open in WhatsApp, ready to send.": "Completa el formulario y tu solicitud se abrirá en WhatsApp, lista para enviar.",
-        "Select service*": "Selecciona un servicio*", "Soft Glam Makeup": "Maquillaje Soft Glam", "Full Glam Makeup": "Maquillaje Full Glam",
+        "Select a date*": "Selecciona una fecha*", "Select service*": "Selecciona un servicio*", "Soft Glam Makeup": "Maquillaje Soft Glam", "Full Glam Makeup": "Maquillaje Full Glam",
         "Makeup & Hair Styling": "Maquillaje y peinado", "How did you hear about me?*": "¿Cómo me conociste?*", "Friend": "Amiga/o", "Other": "Otro",
         "Continue in WhatsApp": "Continuar en WhatsApp", "Your appointment is confirmed after Angelina replies and receives the deposit.": "Tu cita se confirma cuando Angelina responda y reciba el depósito.",
         "Good to know": "Información útil", "Questions": "Preguntas", "What is your cancellation policy?": "¿Cuál es tu política de cancelación?",
@@ -602,7 +618,7 @@
         "Your rating*": "Ваша оценка*", "Send review in WhatsApp": "Отправить отзыв в WhatsApp", "Nothing is published automatically. Angelina will ask before sharing your review.": "Ничего не публикуется автоматически. Перед публикацией Ангелина спросит ваше согласие.", "Thank you! WhatsApp is opening with your review.": "Спасибо! Сейчас откроется WhatsApp с вашим отзывом.",
         "Let's create your look": "Создадим ваш образ", "Book Appointment": "Записаться",
         "Complete the form and your request will open in WhatsApp, ready to send.": "Заполните форму, и готовая заявка откроется в WhatsApp.",
-        "Select service*": "Выберите услугу*", "Soft Glam Makeup": "Мягкий гламур", "Full Glam Makeup": "Яркий гламур",
+        "Select a date*": "Выберите дату*", "Select service*": "Выберите услугу*", "Soft Glam Makeup": "Мягкий гламур", "Full Glam Makeup": "Яркий гламур",
         "Makeup & Hair Styling": "Макияж и причёска", "How did you hear about me?*": "Как вы обо мне узнали?*", "Friend": "От друзей", "Other": "Другое",
         "Continue in WhatsApp": "Продолжить в WhatsApp", "Your appointment is confirmed after Angelina replies and receives the deposit.": "Запись подтверждается после ответа Ангелины и внесения депозита.",
         "Good to know": "Полезно знать", "Questions": "Вопросы", "What is your cancellation policy?": "Какие условия отмены записи?",
