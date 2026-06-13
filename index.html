@@ -149,6 +149,29 @@
     .portfolio-item img { height: 470px; object-fit: cover; transition: transform .5s; }
     .portfolio-item:hover img { transform: scale(1.035); }
 
+    .reviews { background: var(--white); }
+    .reviews-wrap { max-width: 1100px; margin: auto; display: grid; grid-template-columns: .8fr 1.2fr; gap: 7%; align-items: start; }
+    .reviews-intro { padding-top: 12px; }
+    .reviews-intro h3 { font-family: var(--serif); font-size: 48px; font-weight: 500; line-height: 1.05; margin: 14px 0 18px; }
+    .reviews-intro p { color: var(--muted); font-size: 13px; margin-bottom: 22px; }
+    .review-promise { display: grid; gap: 12px; margin-top: 28px; }
+    .review-promise span { padding-top: 12px; border-top: 1px solid var(--line); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+    .review-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 38px; background: var(--paper); border: 1px solid var(--line); }
+    .review-form input, .review-form textarea {
+      background: var(--white);
+      border-color: var(--line);
+      color: var(--ink);
+    }
+    .review-form input::placeholder, .review-form textarea::placeholder { color: #918985; }
+    .rating-field { grid-column: 1 / -1; border: 0; }
+    .rating-field legend { margin-bottom: 8px; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+    .rating-stars { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 5px; }
+    .rating-stars input { position: absolute; opacity: 0; pointer-events: none; }
+    .rating-stars label { color: #cfc5c0; font-family: var(--serif); font-size: 36px; line-height: 1; cursor: pointer; transition: color .2s, transform .2s; }
+    .rating-stars label:hover, .rating-stars label:hover ~ label, .rating-stars input:checked ~ label { color: var(--rose); transform: translateY(-1px); }
+    .review-note { grid-column: 1 / -1; color: var(--muted); font-size: 10px; text-align: center; }
+    .review-status { grid-column: 1 / -1; display: none; color: var(--rose); font-size: 12px; text-align: center; }
+
     .booking { background: var(--ink); color: var(--white); }
     .booking .eyebrow { color: #d8aaa4; }
     .booking .section-copy { color: #c5bfbc; }
@@ -249,13 +272,16 @@
       .about { grid-template-columns: 1fr; gap: 55px; }
       .about img { height: 520px; }
       .about-photo::after { inset: 12px -8px -12px 12px; }
+      .reviews-wrap { grid-template-columns: 1fr; gap: 40px; }
+      .review-form { padding: 24px; }
       .services-grid { grid-template-columns: 1fr; }
       .service-card, .service-card:nth-child(2) { border-right: 0; border-bottom: 1px solid var(--line); }
       .service-card:last-child { border-bottom: 0; }
       .portfolio-grid { grid-template-columns: 1fr 1fr; gap: 7px; }
       .portfolio-item img { height: 280px; }
-      form { grid-template-columns: 1fr; }
+      form, .review-form { grid-template-columns: 1fr; }
       .field-full { grid-column: auto; }
+      .rating-field, .review-note, .review-status { grid-column: auto; }
     }
 
     @media (max-width: 430px) {
@@ -273,6 +299,7 @@
       <a href="#about">About</a>
       <a href="#services">Services</a>
       <a href="#portfolio">Portfolio</a>
+      <a href="#reviews">Reviews</a>
       <a href="#booking">Book</a>
       <a href="#faq">FAQ</a>
       <a href="#contact">Contact</a>
@@ -343,6 +370,44 @@
         <button class="portfolio-item"><img src="images/work4.jpeg" alt="Natural glam makeup look"></button>
         <button class="portfolio-item"><img src="images/work5.jpg" alt="Full glam makeup look"></button>
         <button class="portfolio-item"><img src="images/work6.jpg" alt="Polished makeup look"></button>
+      </div>
+    </section>
+
+    <section id="reviews" class="reviews">
+      <div class="section-head">
+        <span class="eyebrow">Client love</span>
+        <h2 class="section-title">Reviews</h2>
+        <p class="section-copy">Your experience helps future clients feel confident choosing their artist.</p>
+      </div>
+      <div class="reviews-wrap">
+        <div class="reviews-intro">
+          <span class="eyebrow">Share your experience</span>
+          <h3>Your words mean the world.</h3>
+          <p>Had your makeup done by Angelina? Tell her what you loved. Your review will be sent privately and may be featured here after approval.</p>
+          <div class="review-promise">
+            <span>Real client experiences only</span>
+            <span>Shared after your approval</span>
+            <span>Sent privately through WhatsApp</span>
+          </div>
+        </div>
+        <form id="review-form" class="review-form">
+          <input name="reviewName" type="text" placeholder="Your name*" required>
+          <input name="reviewOccasion" type="text" placeholder="Occasion or service">
+          <fieldset class="rating-field">
+            <legend>Your rating*</legend>
+            <div class="rating-stars" aria-label="Choose your rating">
+              <input type="radio" id="star5" name="rating" value="5" required><label for="star5" title="5 stars">★</label>
+              <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">★</label>
+              <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars">★</label>
+              <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">★</label>
+              <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">★</label>
+            </div>
+          </fieldset>
+          <textarea class="field-full" name="reviewText" placeholder="Tell us about your experience*" required></textarea>
+          <button class="btn btn-dark field-full" type="submit">Send review in WhatsApp</button>
+          <p class="review-note">Nothing is published automatically. Angelina will ask before sharing your review.</p>
+          <p class="review-status">Thank you! WhatsApp is opening with your review.</p>
+        </form>
       </div>
     </section>
 
@@ -423,7 +488,7 @@
 
     const translations = {
       es: {
-        "About": "Sobre mí", "Services": "Servicios", "Portfolio": "Portafolio", "Book": "Reservar", "Contact": "Contacto",
+        "About": "Sobre mí", "Services": "Servicios", "Portfolio": "Portafolio", "Reviews": "Reseñas", "Book": "Reservar", "Contact": "Contacto",
         "Miami makeup artist": "Maquilladora en Miami", "Feel like yourself, only more radiant": "Siéntete tú misma, aún más radiante",
         "Book appointment": "Reservar cita", "View portfolio": "Ver portafolio", "Meet your artist": "Conoce a tu artista",
         "Hi, I'm Angelina.": "Hola, soy Angelina.",
@@ -437,6 +502,11 @@
         "Bridal Makeup": "Maquillaje de novia", "Timeless, camera-ready beauty designed for your wedding day.": "Belleza atemporal y perfecta para las fotos de tu boda.",
         "Makeup & Hair": "Maquillaje y peinado", "A complete, beautifully coordinated look for any occasion.": "Un look completo y coordinado para cualquier ocasión.",
         "Selected work": "Trabajos seleccionados", "Tap any image to see the details up close.": "Toca cualquier imagen para verla de cerca.",
+        "Client love": "El cariño de mis clientas", "Your experience helps future clients feel confident choosing their artist.": "Tu experiencia ayuda a futuras clientas a elegir a su artista con confianza.",
+        "Share your experience": "Comparte tu experiencia", "Your words mean the world.": "Tus palabras significan mucho.",
+        "Had your makeup done by Angelina? Tell her what you loved. Your review will be sent privately and may be featured here after approval.": "¿Angelina hizo tu maquillaje? Cuéntale qué te encantó. Tu reseña se enviará en privado y podrá aparecer aquí después de tu aprobación.",
+        "Real client experiences only": "Solo experiencias de clientas reales", "Shared after your approval": "Compartido después de tu aprobación", "Sent privately through WhatsApp": "Enviado en privado por WhatsApp",
+        "Your rating*": "Tu valoración*", "Send review in WhatsApp": "Enviar reseña por WhatsApp", "Nothing is published automatically. Angelina will ask before sharing your review.": "Nada se publica automáticamente. Angelina pedirá permiso antes de compartir tu reseña.", "Thank you! WhatsApp is opening with your review.": "¡Gracias! WhatsApp se abrirá con tu reseña.",
         "Let's create your look": "Creemos tu look", "Book Appointment": "Reservar cita",
         "Complete the form and your request will open in WhatsApp, ready to send.": "Completa el formulario y tu solicitud se abrirá en WhatsApp, lista para enviar.",
         "Select service*": "Selecciona un servicio*", "Soft Glam Makeup": "Maquillaje Soft Glam", "Full Glam Makeup": "Maquillaje Full Glam",
@@ -454,7 +524,7 @@
         "All rights reserved.": "Todos los derechos reservados."
       },
       ru: {
-        "About": "Обо мне", "Services": "Услуги", "Portfolio": "Портфолио", "Book": "Запись", "Contact": "Контакты",
+        "About": "Обо мне", "Services": "Услуги", "Portfolio": "Портфолио", "Reviews": "Отзывы", "Book": "Запись", "Contact": "Контакты",
         "Miami makeup artist": "Визажист в Майами", "Feel like yourself, only more radiant": "Оставайся собой, только ещё прекраснее",
         "Book appointment": "Записаться", "View portfolio": "Смотреть портфолио", "Meet your artist": "Познакомимся",
         "Hi, I'm Angelina.": "Привет, я Ангелина.",
@@ -468,6 +538,11 @@
         "Bridal Makeup": "Свадебный макияж", "Timeless, camera-ready beauty designed for your wedding day.": "Утончённый и фотогеничный образ для свадебного дня.",
         "Makeup & Hair": "Макияж и причёска", "A complete, beautifully coordinated look for any occasion.": "Гармоничный завершённый образ для любого события.",
         "Selected work": "Избранные работы", "Tap any image to see the details up close.": "Нажмите на фотографию, чтобы рассмотреть её ближе.",
+        "Client love": "Любовь клиентов", "Your experience helps future clients feel confident choosing their artist.": "Ваш опыт поможет будущим клиентам увереннее выбрать своего визажиста.",
+        "Share your experience": "Поделитесь впечатлениями", "Your words mean the world.": "Ваши слова очень важны.",
+        "Had your makeup done by Angelina? Tell her what you loved. Your review will be sent privately and may be featured here after approval.": "Ангелина делала вам макияж? Расскажите, что вам понравилось. Отзыв будет отправлен лично и может появиться здесь только после вашего согласия.",
+        "Real client experiences only": "Только отзывы реальных клиентов", "Shared after your approval": "Публикация после вашего согласия", "Sent privately through WhatsApp": "Личная отправка через WhatsApp",
+        "Your rating*": "Ваша оценка*", "Send review in WhatsApp": "Отправить отзыв в WhatsApp", "Nothing is published automatically. Angelina will ask before sharing your review.": "Ничего не публикуется автоматически. Перед публикацией Ангелина спросит ваше согласие.", "Thank you! WhatsApp is opening with your review.": "Спасибо! Сейчас откроется WhatsApp с вашим отзывом.",
         "Let's create your look": "Создадим ваш образ", "Book Appointment": "Записаться",
         "Complete the form and your request will open in WhatsApp, ready to send.": "Заполните форму, и готовая заявка откроется в WhatsApp.",
         "Select service*": "Выберите услугу*", "Soft Glam Makeup": "Мягкий гламур", "Full Glam Makeup": "Яркий гламур",
@@ -489,11 +564,13 @@
     const placeholderTranslations = {
       es: {
         "First name*": "Nombre*", "Last name*": "Apellido*", "Phone number*": "Número de teléfono*",
-        "Tell me about the occasion, desired time, and location": "Cuéntame sobre la ocasión, hora y ubicación"
+        "Tell me about the occasion, desired time, and location": "Cuéntame sobre la ocasión, hora y ubicación",
+        "Your name*": "Tu nombre*", "Occasion or service": "Ocasión o servicio", "Tell us about your experience*": "Cuéntanos sobre tu experiencia*"
       },
       ru: {
         "First name*": "Имя*", "Last name*": "Фамилия*", "Phone number*": "Номер телефона*",
-        "Tell me about the occasion, desired time, and location": "Расскажите о событии, желаемом времени и месте"
+        "Tell me about the occasion, desired time, and location": "Расскажите о событии, желаемом времени и месте",
+        "Your name*": "Ваше имя*", "Occasion or service": "Событие или услуга", "Tell us about your experience*": "Расскажите о своих впечатлениях*"
       }
     };
 
@@ -568,6 +645,27 @@
     lightbox.querySelector(".lightbox-close").addEventListener("click", closeLightbox);
     lightbox.addEventListener("click", event => { if (event.target === lightbox) closeLightbox(); });
     document.addEventListener("keydown", event => { if (event.key === "Escape") closeLightbox(); });
+
+    document.querySelector("#review-form").addEventListener("submit", event => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      const language = languageSelect.value;
+      const reviewLabels = {
+        en: { intro: "Hi Angelina! I'd like to leave a review.", name: "Name", occasion: "Occasion or service", rating: "Rating", review: "Review", empty: "Not specified" },
+        es: { intro: "¡Hola Angelina! Me gustaría dejar una reseña.", name: "Nombre", occasion: "Ocasión o servicio", rating: "Valoración", review: "Reseña", empty: "No especificado" },
+        ru: { intro: "Привет, Ангелина! Я хочу оставить отзыв.", name: "Имя", occasion: "Событие или услуга", rating: "Оценка", review: "Отзыв", empty: "Не указано" }
+      }[language];
+      const message = [
+        reviewLabels.intro,
+        "",
+        `${reviewLabels.name}: ${data.get("reviewName")}`,
+        `${reviewLabels.occasion}: ${data.get("reviewOccasion") || reviewLabels.empty}`,
+        `${reviewLabels.rating}: ${data.get("rating")}/5`,
+        `${reviewLabels.review}: ${data.get("reviewText")}`
+      ].join("\n");
+      event.currentTarget.querySelector(".review-status").style.display = "block";
+      window.open(`https://wa.me/17867190778?text=${encodeURIComponent(message)}`, "_blank", "noopener");
+    });
 
     document.querySelector("#booking-form").addEventListener("submit", event => {
       event.preventDefault();
