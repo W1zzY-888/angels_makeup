@@ -195,6 +195,13 @@
     .portfolio-item:last-child:nth-child(3n + 2) { grid-column: span 2; }
 
     .reviews { background: var(--white); }
+    .reviews-list { max-width: 1250px; margin: 0 auto 65px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .review-card { min-height: 230px; padding: 30px; background: var(--paper); border: 1px solid var(--line); display: flex; flex-direction: column; }
+    .review-card-stars { color: var(--rose); font-family: var(--serif); font-size: 24px; letter-spacing: 2px; line-height: 1; }
+    .review-card-text { margin: 22px 0 28px; color: var(--muted); font-size: 13px; flex: 1; }
+    .review-card-name { font-family: var(--serif); font-size: 25px; line-height: 1; }
+    .review-card-service { margin-top: 7px; color: var(--muted); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; }
+    .reviews-empty { grid-column: 1 / -1; padding: 34px; border: 1px solid var(--line); color: var(--muted); font-size: 12px; text-align: center; }
     .reviews-wrap { max-width: 1100px; margin: auto; display: grid; grid-template-columns: .8fr 1.2fr; gap: 7%; align-items: start; }
     .reviews-intro { padding-top: 12px; }
     .reviews-intro h3 { font-family: var(--serif); font-size: 48px; font-weight: 500; line-height: 1.05; margin: 14px 0 18px; }
@@ -216,6 +223,9 @@
     .rating-stars label:hover, .rating-stars label:hover ~ label, .rating-stars input:checked ~ label { color: var(--rose); transform: translateY(-1px); }
     .review-note { grid-column: 1 / -1; color: var(--muted); font-size: 10px; text-align: center; }
     .review-status { grid-column: 1 / -1; display: none; color: var(--rose); font-size: 12px; text-align: center; }
+    .review-status.error { color: #9b4d4d; }
+    .review-form button:disabled { opacity: .55; cursor: wait; }
+    .review-website { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 
     .booking { background: var(--ink); color: var(--white); }
     .booking .eyebrow { color: #d8aaa4; }
@@ -420,6 +430,7 @@
       .about img { height: 520px; }
       .about-photo::after { inset: 12px -8px -12px 12px; }
       .reviews-wrap { grid-template-columns: 1fr; gap: 40px; }
+      .reviews-list { grid-template-columns: 1fr; margin-bottom: 45px; }
       .review-form { padding: 24px; }
       .services-grid { grid-template-columns: 1fr; }
       .service-card, .service-card:nth-child(2) { border-right: 0; border-bottom: 1px solid var(--line); }
@@ -530,15 +541,18 @@
         <h2 class="section-title">Reviews</h2>
         <p class="section-copy">Your experience helps future clients feel confident choosing their artist.</p>
       </div>
+      <div id="reviews-list" class="reviews-list" aria-live="polite">
+        <p class="reviews-empty">Approved client reviews will appear here.</p>
+      </div>
       <div class="reviews-wrap">
         <div class="reviews-intro">
           <span class="eyebrow">Share your experience</span>
           <h3>Your words mean the world.</h3>
-          <p>Had your makeup done by Angelina? Tell her what you loved. Your review will be sent privately and may be featured here after approval.</p>
+          <p>Had your makeup done by Angelina? Tell her what you loved. Your review will appear here after approval.</p>
           <div class="review-promise">
             <span>Real client experiences only</span>
-            <span>Shared after your approval</span>
-            <span>Sent privately through WhatsApp</span>
+            <span>Published after moderation</span>
+            <span>Submitted directly on this website</span>
           </div>
         </div>
         <form id="review-form" class="review-form">
@@ -555,9 +569,10 @@
             </div>
           </fieldset>
           <textarea class="field-full" name="reviewText" placeholder="Tell us about your experience*" required></textarea>
-          <button class="btn btn-dark field-full" type="submit">Send review in WhatsApp</button>
-          <p class="review-note">Nothing is published automatically. Angelina will ask before sharing your review.</p>
-          <p class="review-status">Thank you! WhatsApp is opening with your review.</p>
+          <input class="review-website" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn btn-dark field-full" type="submit">Submit review</button>
+          <p class="review-note">Nothing is published automatically. Angelina reviews every submission first.</p>
+          <p class="review-status">Thank you! Your review was submitted for approval.</p>
         </form>
       </div>
     </section>
@@ -670,6 +685,8 @@
         "Had your makeup done by Angelina? Tell her what you loved. Your review will be sent privately and may be featured here after approval.": "¿Angelina hizo tu maquillaje? Cuéntale qué te encantó. Tu reseña se enviará en privado y podrá aparecer aquí después de tu aprobación.",
         "Real client experiences only": "Solo experiencias de clientas reales", "Shared after your approval": "Compartido después de tu aprobación", "Sent privately through WhatsApp": "Enviado en privado por WhatsApp",
         "Your rating*": "Tu valoración*", "Send review in WhatsApp": "Enviar reseña por WhatsApp", "Nothing is published automatically. Angelina will ask before sharing your review.": "Nada se publica automáticamente. Angelina pedirá permiso antes de compartir tu reseña.", "Thank you! WhatsApp is opening with your review.": "¡Gracias! WhatsApp se abrirá con tu reseña.",
+        "Approved client reviews will appear here.": "Las reseñas aprobadas aparecerán aquí.", "Had your makeup done by Angelina? Tell her what you loved. Your review will appear here after approval.": "¿Angelina hizo tu maquillaje? Cuéntanos qué te encantó. Tu reseña aparecerá aquí después de ser aprobada.",
+        "Published after moderation": "Publicado después de moderación", "Submitted directly on this website": "Enviado directamente en este sitio web", "Submit review": "Enviar reseña", "Nothing is published automatically. Angelina reviews every submission first.": "Nada se publica automáticamente. Angelina revisa cada envío primero.", "Thank you! Your review was submitted for approval.": "¡Gracias! Tu reseña fue enviada para aprobación.",
         "Let's create your look": "Creemos tu look", "Book Appointment": "Reservar cita",
         "Complete the form and your request will open in WhatsApp, ready to send.": "Completa el formulario y tu solicitud se abrirá en WhatsApp, lista para enviar.",
         "Select a date*": "Selecciona una fecha*", "Select service*": "Selecciona un servicio*", "Soft Glam Makeup": "Maquillaje Soft Glam", "Full Glam Makeup": "Maquillaje Full Glam",
@@ -706,6 +723,8 @@
         "Had your makeup done by Angelina? Tell her what you loved. Your review will be sent privately and may be featured here after approval.": "Ангелина делала вам макияж? Расскажите, что вам понравилось. Отзыв будет отправлен лично и может появиться здесь только после вашего согласия.",
         "Real client experiences only": "Только отзывы реальных клиентов", "Shared after your approval": "Публикация после вашего согласия", "Sent privately through WhatsApp": "Личная отправка через WhatsApp",
         "Your rating*": "Ваша оценка*", "Send review in WhatsApp": "Отправить отзыв в WhatsApp", "Nothing is published automatically. Angelina will ask before sharing your review.": "Ничего не публикуется автоматически. Перед публикацией Ангелина спросит ваше согласие.", "Thank you! WhatsApp is opening with your review.": "Спасибо! Сейчас откроется WhatsApp с вашим отзывом.",
+        "Approved client reviews will appear here.": "Здесь появятся одобренные отзывы клиентов.", "Had your makeup done by Angelina? Tell her what you loved. Your review will appear here after approval.": "Ангелина делала вам макияж? Расскажите, что вам понравилось. Отзыв появится здесь после одобрения.",
+        "Published after moderation": "Публикация после модерации", "Submitted directly on this website": "Отправка прямо на сайте", "Submit review": "Отправить отзыв", "Nothing is published automatically. Angelina reviews every submission first.": "Ничего не публикуется автоматически. Ангелина сначала проверяет каждый отзыв.", "Thank you! Your review was submitted for approval.": "Спасибо! Ваш отзыв отправлен на модерацию.",
         "Let's create your look": "Создадим ваш образ", "Book Appointment": "Записаться",
         "Complete the form and your request will open in WhatsApp, ready to send.": "Заполните форму, и готовая заявка откроется в WhatsApp.",
         "Select a date*": "Выберите дату*", "Select service*": "Выберите услугу*", "Soft Glam Makeup": "Мягкий гламур", "Full Glam Makeup": "Яркий гламур",
@@ -815,26 +834,85 @@
     lightbox.addEventListener("click", event => { if (event.target === lightbox) closeLightbox(); });
     document.addEventListener("keydown", event => { if (event.key === "Escape") closeLightbox(); });
 
-    document.querySelector("#review-form").addEventListener("submit", event => {
+    const supabaseUrl = "https://npsgrmyuhcezpejddkgc.supabase.co";
+    const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5wc2dybXl1aGNlenBlamRka2djIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0MDkzNjAsImV4cCI6MjA5Njk4NTM2MH0.Q9IZRoCgnI8hnayc9GM_2810qvgS6s6WRCM62DkFQbA";
+    const reviewsEndpoint = `${supabaseUrl}/rest/v1/reviews`;
+    const reviewHeaders = { apikey: supabaseAnonKey, Authorization: `Bearer ${supabaseAnonKey}` };
+    const reviewsList = document.querySelector("#reviews-list");
+    const reviewForm = document.querySelector("#review-form");
+    const reviewFormOpenedAt = Date.now();
+
+    function escapeReviewText(value) {
+      const element = document.createElement("div");
+      element.textContent = value || "";
+      return element.innerHTML;
+    }
+
+    async function loadApprovedReviews() {
+      try {
+        const response = await fetch(`${reviewsEndpoint}?select=id,name,service,rating,review,created_at&order=created_at.desc&limit=12`, { headers: reviewHeaders });
+        if (!response.ok) throw new Error("Could not load reviews");
+        const reviews = await response.json();
+        if (!reviews.length) return;
+        reviewsList.innerHTML = reviews.map(review => `
+          <article class="review-card">
+            <div class="review-card-stars" aria-label="${review.rating} out of 5 stars">${"★".repeat(review.rating)}${"☆".repeat(5 - review.rating)}</div>
+            <p class="review-card-text">${escapeReviewText(review.review)}</p>
+            <h3 class="review-card-name">${escapeReviewText(review.name)}</h3>
+            ${review.service ? `<p class="review-card-service">${escapeReviewText(review.service)}</p>` : ""}
+          </article>
+        `).join("");
+      } catch (error) {
+        console.warn("Reviews are temporarily unavailable.", error);
+      }
+    }
+
+    reviewForm.addEventListener("submit", async event => {
       event.preventDefault();
       const data = new FormData(event.currentTarget);
       const language = languageSelect.value;
-      const reviewLabels = {
-        en: { intro: "Hi Angelina! I'd like to leave a review.", name: "Name", occasion: "Occasion or service", rating: "Rating", review: "Review", empty: "Not specified" },
-        es: { intro: "¡Hola Angelina! Me gustaría dejar una reseña.", name: "Nombre", occasion: "Ocasión o servicio", rating: "Valoración", review: "Reseña", empty: "No especificado" },
-        ru: { intro: "Привет, Ангелина! Я хочу оставить отзыв.", name: "Имя", occasion: "Событие или услуга", rating: "Оценка", review: "Отзыв", empty: "Не указано" }
+      const messages = {
+        en: { sending: "Submitting your review...", success: "Thank you! Your review was submitted for approval.", error: "Something went wrong. Please try again." },
+        es: { sending: "Enviando tu reseña...", success: "¡Gracias! Tu reseña fue enviada para aprobación.", error: "Algo salió mal. Inténtalo de nuevo." },
+        ru: { sending: "Отправляем ваш отзыв...", success: "Спасибо! Ваш отзыв отправлен на модерацию.", error: "Что-то пошло не так. Попробуйте ещё раз." }
       }[language];
-      const message = [
-        reviewLabels.intro,
-        "",
-        `${reviewLabels.name}: ${data.get("reviewName")}`,
-        `${reviewLabels.occasion}: ${data.get("reviewOccasion") || reviewLabels.empty}`,
-        `${reviewLabels.rating}: ${data.get("rating")}/5`,
-        `${reviewLabels.review}: ${data.get("reviewText")}`
-      ].join("\n");
-      event.currentTarget.querySelector(".review-status").style.display = "block";
-      window.open(`https://wa.me/17867190778?text=${encodeURIComponent(message)}`, "_blank", "noopener");
+      const status = event.currentTarget.querySelector(".review-status");
+      const submitButton = event.currentTarget.querySelector('button[type="submit"]');
+      status.classList.remove("error");
+      status.textContent = messages.sending;
+      status.style.display = "block";
+
+      if (data.get("website") || Date.now() - reviewFormOpenedAt < 2500) {
+        status.textContent = messages.success;
+        event.currentTarget.reset();
+        return;
+      }
+
+      submitButton.disabled = true;
+      try {
+        const response = await fetch(reviewsEndpoint, {
+          method: "POST",
+          headers: { ...reviewHeaders, "Content-Type": "application/json", Prefer: "return=minimal" },
+          body: JSON.stringify({
+            name: data.get("reviewName").trim(),
+            service: data.get("reviewOccasion").trim() || null,
+            rating: Number(data.get("rating")),
+            review: data.get("reviewText").trim()
+          })
+        });
+        if (!response.ok) throw new Error(await response.text());
+        status.textContent = messages.success;
+        event.currentTarget.reset();
+      } catch (error) {
+        status.textContent = messages.error;
+        status.classList.add("error");
+        console.error("Review submission failed.", error);
+      } finally {
+        submitButton.disabled = false;
+      }
     });
+
+    loadApprovedReviews();
 
     document.querySelector("#booking-form").addEventListener("submit", event => {
       event.preventDefault();
