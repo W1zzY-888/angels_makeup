@@ -201,6 +201,7 @@
     .review-card-text { margin: 22px 0 28px; color: var(--muted); font-size: 13px; flex: 1; }
     .review-card-name { font-family: var(--serif); font-size: 25px; line-height: 1; }
     .review-card-service { margin-top: 7px; color: var(--muted); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; }
+    .review-card-translation { margin-top: 14px; color: var(--rose); font-size: 8px; letter-spacing: 1px; text-transform: uppercase; }
     .reviews-empty { grid-column: 1 / -1; padding: 34px; border: 1px solid var(--line); color: var(--muted); font-size: 12px; text-align: center; }
     .reviews-wrap { max-width: 1100px; margin: auto; display: grid; grid-template-columns: .8fr 1.2fr; gap: 7%; align-items: start; }
     .reviews-intro { padding-top: 12px; }
@@ -687,6 +688,7 @@
         "Your rating*": "Tu valoración*", "Send review in WhatsApp": "Enviar reseña por WhatsApp", "Nothing is published automatically. Angelina will ask before sharing your review.": "Nada se publica automáticamente. Angelina pedirá permiso antes de compartir tu reseña.", "Thank you! WhatsApp is opening with your review.": "¡Gracias! WhatsApp se abrirá con tu reseña.",
         "Approved client reviews will appear here.": "Las reseñas aprobadas aparecerán aquí.", "Had your makeup done by Angelina? Tell her what you loved. Your review will appear here after approval.": "¿Angelina hizo tu maquillaje? Cuéntanos qué te encantó. Tu reseña aparecerá aquí después de ser aprobada.",
         "Published after moderation": "Publicado después de moderación", "Submitted directly on this website": "Enviado directamente en este sitio web", "Submit review": "Enviar reseña", "Nothing is published automatically. Angelina reviews every submission first.": "Nada se publica automáticamente. Angelina revisa cada envío primero.", "Thank you! Your review was submitted for approval.": "¡Gracias! Tu reseña fue enviada para aprobación.",
+        "Automatically translated": "Traducido automáticamente",
         "Let's create your look": "Creemos tu look", "Book Appointment": "Reservar cita",
         "Complete the form and your request will open in WhatsApp, ready to send.": "Completa el formulario y tu solicitud se abrirá en WhatsApp, lista para enviar.",
         "Select a date*": "Selecciona una fecha*", "Select service*": "Selecciona un servicio*", "Soft Glam Makeup": "Maquillaje Soft Glam", "Full Glam Makeup": "Maquillaje Full Glam",
@@ -725,6 +727,7 @@
         "Your rating*": "Ваша оценка*", "Send review in WhatsApp": "Отправить отзыв в WhatsApp", "Nothing is published automatically. Angelina will ask before sharing your review.": "Ничего не публикуется автоматически. Перед публикацией Ангелина спросит ваше согласие.", "Thank you! WhatsApp is opening with your review.": "Спасибо! Сейчас откроется WhatsApp с вашим отзывом.",
         "Approved client reviews will appear here.": "Здесь появятся одобренные отзывы клиентов.", "Had your makeup done by Angelina? Tell her what you loved. Your review will appear here after approval.": "Ангелина делала вам макияж? Расскажите, что вам понравилось. Отзыв появится здесь после одобрения.",
         "Published after moderation": "Публикация после модерации", "Submitted directly on this website": "Отправка прямо на сайте", "Submit review": "Отправить отзыв", "Nothing is published automatically. Angelina reviews every submission first.": "Ничего не публикуется автоматически. Ангелина сначала проверяет каждый отзыв.", "Thank you! Your review was submitted for approval.": "Спасибо! Ваш отзыв отправлен на модерацию.",
+        "Automatically translated": "Автоматический перевод",
         "Let's create your look": "Создадим ваш образ", "Book Appointment": "Записаться",
         "Complete the form and your request will open in WhatsApp, ready to send.": "Заполните форму, и готовая заявка откроется в WhatsApp.",
         "Select a date*": "Выберите дату*", "Select service*": "Выберите услугу*", "Soft Glam Makeup": "Мягкий гламур", "Full Glam Makeup": "Яркий гламур",
@@ -784,6 +787,7 @@
       document.documentElement.lang = language;
       languageSelect.value = language;
       localStorage.setItem("angels-language", language);
+      if (window.angelsReviewsReady) renderReviews(language);
     }
 
     languageSelect.addEventListener("change", event => setLanguage(event.target.value));
@@ -841,6 +845,8 @@
     const reviewsList = document.querySelector("#reviews-list");
     const reviewForm = document.querySelector("#review-form");
     const reviewFormOpenedAt = Date.now();
+    let approvedReviews = [];
+    let reviewRenderId = 0;
 
     function escapeReviewText(value) {
       const element = document.createElement("div");
@@ -848,20 +854,68 @@
       return element.innerHTML;
     }
 
+    function getTranslationCache() {
+      try {
+        return JSON.parse(localStorage.getItem("angels-review-translations") || "{}");
+      } catch {
+        return {};
+      }
+    }
+
+    async function translateReviewText(text, language) {
+      if (!text || language === "en" && /^[\x00-\x7F]*$/.test(text)) return { text, translated: false };
+      const cache = getTranslationCache();
+      const cacheKey = `${language}:${text}`;
+      if (cache[cacheKey]) return { text: cache[cacheKey], translated: cache[cacheKey] !== text };
+
+      const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=Autodetect|${language}`);
+      if (!response.ok) throw new Error("Could not translate review");
+      const result = await response.json();
+      const translatedText = result.responseData?.translatedText || text;
+      cache[cacheKey] = translatedText;
+      localStorage.setItem("angels-review-translations", JSON.stringify(cache));
+      return { text: translatedText, translated: translatedText !== text };
+    }
+
+    async function renderReviews(language = languageSelect.value) {
+      if (!approvedReviews.length) return;
+      const currentRenderId = ++reviewRenderId;
+      const translatedReviews = await Promise.all(approvedReviews.map(async review => {
+        try {
+          const [reviewText, serviceText] = await Promise.all([
+            translateReviewText(review.review, language),
+            translateReviewText(review.service, language)
+          ]);
+          return { ...review, reviewText, serviceText };
+        } catch {
+          return {
+            ...review,
+            reviewText: { text: review.review, translated: false },
+            serviceText: { text: review.service, translated: false }
+          };
+        }
+      }));
+      if (currentRenderId !== reviewRenderId) return;
+      const translationLabel = translations[language]?.["Automatically translated"] || "Automatically translated";
+      reviewsList.innerHTML = translatedReviews.map(review => `
+        <article class="review-card">
+          <div class="review-card-stars" aria-label="${review.rating} out of 5 stars">${"★".repeat(review.rating)}${"☆".repeat(5 - review.rating)}</div>
+          <p class="review-card-text">${escapeReviewText(review.reviewText.text)}</p>
+          <h3 class="review-card-name">${escapeReviewText(review.name)}</h3>
+          ${review.serviceText.text ? `<p class="review-card-service">${escapeReviewText(review.serviceText.text)}</p>` : ""}
+          ${review.reviewText.translated || review.serviceText.translated ? `<p class="review-card-translation">${translationLabel}</p>` : ""}
+        </article>
+      `).join("");
+    }
+
     async function loadApprovedReviews() {
       try {
         const response = await fetch(`${reviewsEndpoint}?select=id,name,service,rating,review,created_at&order=created_at.desc&limit=12`, { headers: reviewHeaders });
         if (!response.ok) throw new Error("Could not load reviews");
-        const reviews = await response.json();
-        if (!reviews.length) return;
-        reviewsList.innerHTML = reviews.map(review => `
-          <article class="review-card">
-            <div class="review-card-stars" aria-label="${review.rating} out of 5 stars">${"★".repeat(review.rating)}${"☆".repeat(5 - review.rating)}</div>
-            <p class="review-card-text">${escapeReviewText(review.review)}</p>
-            <h3 class="review-card-name">${escapeReviewText(review.name)}</h3>
-            ${review.service ? `<p class="review-card-service">${escapeReviewText(review.service)}</p>` : ""}
-          </article>
-        `).join("");
+        approvedReviews = await response.json();
+        if (!approvedReviews.length) return;
+        window.angelsReviewsReady = true;
+        await renderReviews(languageSelect.value);
       } catch (error) {
         console.warn("Reviews are temporarily unavailable.", error);
       }
