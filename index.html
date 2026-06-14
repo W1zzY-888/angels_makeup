@@ -862,13 +862,20 @@
       }
     }
 
+    function detectReviewLanguage(text) {
+      if (/[\u0400-\u04FF]/.test(text)) return "ru";
+      if (/[áéíóúüñ¿¡]/i.test(text)) return "es";
+      return "en";
+    }
+
     async function translateReviewText(text, language) {
-      if (!text || language === "en" && /^[\x00-\x7F]*$/.test(text)) return { text, translated: false };
+      if (!text || detectReviewLanguage(text) === language) return { text, translated: false };
       const cache = getTranslationCache();
       const cacheKey = `${language}:${text}`;
       if (cache[cacheKey]) return { text: cache[cacheKey], translated: cache[cacheKey] !== text };
 
-      const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=Autodetect|${language}`);
+      const sourceLanguage = detectReviewLanguage(text);
+      const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${sourceLanguage}|${language}`);
       if (!response.ok) throw new Error("Could not translate review");
       const result = await response.json();
       const translatedText = result.responseData?.translatedText || text;
