@@ -174,14 +174,14 @@
     section { padding: 110px 7%; }
     .section-head { max-width: 640px; margin: 0 auto 55px; text-align: center; }
     .section-title { font-family: var(--serif); font-size: clamp(50px, 7vw, 76px); font-weight: 500; line-height: 1; margin-top: 10px; }
-    .section-copy { margin-top: 16px; color: var(--muted); font-size: 14px; }
+    .section-copy { margin-top: 16px; color: var(--muted); font-size: 16px; }
 
     .about { max-width: 1180px; margin: auto; display: grid; grid-template-columns: .9fr 1fr; gap: 8%; align-items: center; }
     .about-photo { position: relative; }
     .about-photo::after { content: ""; position: absolute; inset: 18px -18px -18px 18px; border: 1px solid var(--rose); z-index: -1; }
     .about img { height: 650px; object-fit: cover; object-position: center; }
     .about-text h2 { font-family: var(--serif); font-size: clamp(48px, 6vw, 72px); font-weight: 500; line-height: 1; margin: 12px 0 25px; }
-    .about-text p { margin-bottom: 17px; color: var(--muted); font-size: 14px; }
+    .about-text p { margin-bottom: 19px; color: var(--muted); font-size: 17px; }
     .about-text strong { color: var(--ink); font-weight: 500; }
     .about-text .btn { margin-top: 14px; }
 
@@ -191,30 +191,28 @@
     .service-card:last-child { border-right: 0; }
     .service-number { color: var(--rose); font-family: var(--serif); font-size: 22px; }
     .service-card h3 { font-family: var(--serif); font-size: 32px; line-height: 1.1; font-weight: 500; margin: 18px 0 12px; }
-    .service-card p { font-size: 12px; color: var(--muted); }
+    .service-card p { font-size: 15px; color: var(--muted); }
 
     .portfolio-grid { max-width: 1250px; margin: auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
     .portfolio-item { border: 0; padding: 0; background: none; cursor: zoom-in; overflow: hidden; }
     .portfolio-item img { height: 470px; object-fit: cover; transition: transform .5s; }
     .portfolio-item:hover img { transform: scale(1.035); }
-    .portfolio-item:last-child:nth-child(3n + 1) { grid-column: 1 / -1; }
-    .portfolio-item:last-child:nth-child(3n + 2) { grid-column: span 2; }
 
     .reviews { background: var(--white); }
     .reviews-list { max-width: 1250px; margin: 0 auto 65px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
     .review-card { min-height: 230px; padding: 30px; background: var(--paper); border: 1px solid var(--line); display: flex; flex-direction: column; }
     .review-card-stars { color: var(--rose); font-family: var(--serif); font-size: 24px; letter-spacing: 2px; line-height: 1; }
-    .review-card-text { margin: 22px 0 28px; color: var(--muted); font-size: 13px; flex: 1; }
+    .review-card-text { margin: 22px 0 28px; color: var(--muted); font-size: 16px; flex: 1; }
     .review-card-name { font-family: var(--serif); font-size: 25px; line-height: 1; }
-    .review-card-service { margin-top: 7px; color: var(--muted); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; }
-    .review-card-translation { margin-top: 14px; color: var(--rose); font-size: 8px; letter-spacing: 1px; text-transform: uppercase; }
-    .reviews-empty { grid-column: 1 / -1; padding: 34px; border: 1px solid var(--line); color: var(--muted); font-size: 12px; text-align: center; }
+    .review-card-service { margin-top: 7px; color: var(--muted); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+    .review-card-translation { margin-top: 14px; color: var(--rose); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+    .reviews-empty { grid-column: 1 / -1; padding: 34px; border: 1px solid var(--line); color: var(--muted); font-size: 15px; text-align: center; }
     .reviews-wrap { max-width: 1100px; margin: auto; display: grid; grid-template-columns: .8fr 1.2fr; gap: 7%; align-items: start; }
     .reviews-intro { padding-top: 12px; }
     .reviews-intro h3 { font-family: var(--serif); font-size: 48px; font-weight: 500; line-height: 1.05; margin: 14px 0 18px; }
-    .reviews-intro p { color: var(--muted); font-size: 13px; margin-bottom: 22px; }
+    .reviews-intro p { color: var(--muted); font-size: 16px; margin-bottom: 22px; }
     .review-promise { display: grid; gap: 12px; margin-top: 28px; }
-    .review-promise span { padding-top: 12px; border-top: 1px solid var(--line); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+    .review-promise span { padding-top: 12px; border-top: 1px solid var(--line); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
     .review-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 38px; background: var(--paper); border: 1px solid var(--line); }
     .review-form input, .review-form textarea {
       background: var(--white);
@@ -223,13 +221,13 @@
     }
     .review-form input::placeholder, .review-form textarea::placeholder { color: #918985; }
     .rating-field { grid-column: 1 / -1; border: 0; }
-    .rating-field legend { margin-bottom: 8px; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+    .rating-field legend { margin-bottom: 8px; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
     .rating-stars { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 5px; }
     .review-form .rating-stars input { position: absolute; width: 1px; min-height: 0; height: 1px; padding: 0; opacity: 0; pointer-events: none; }
     .rating-stars label { color: #cfc5c0; font-family: var(--serif); font-size: 36px; line-height: 1; cursor: pointer; transition: color .2s, transform .2s; }
     .rating-stars label:hover, .rating-stars label:hover ~ label, .rating-stars input:checked ~ label { color: var(--rose); transform: translateY(-1px); }
-    .review-note { grid-column: 1 / -1; color: var(--muted); font-size: 10px; text-align: center; }
-    .review-status { grid-column: 1 / -1; display: none; color: var(--rose); font-size: 12px; text-align: center; }
+    .review-note { grid-column: 1 / -1; color: var(--muted); font-size: 12px; text-align: center; }
+    .review-status { grid-column: 1 / -1; display: none; color: var(--rose); font-size: 14px; text-align: center; }
     .review-status.error { color: #9b4d4d; }
     .review-form button:disabled { opacity: .55; cursor: wait; }
     .review-website { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
@@ -248,7 +246,7 @@
       border: 1px solid #655e5a;
       background: transparent;
       color: var(--white);
-      font-size: 13px;
+      font-size: 16px;
       outline: none;
       transition: border-color .2s;
     }
@@ -284,7 +282,7 @@
       display: flex;
       align-items: center;
       color: #bdb6b2;
-      font-size: 13px;
+      font-size: 16px;
       pointer-events: none;
     }
     .date-field input:valid + .date-placeholder { display: none; }
@@ -333,7 +331,7 @@
       background-repeat: no-repeat;
       padding: 15px 42px 15px 16px;
       color: #bdb6b2;
-      font-size: 13px;
+      font-size: 16px;
       line-height: 1.5;
     }
     .booking select:valid { color: var(--white); }
@@ -343,7 +341,7 @@
     textarea { height: 125px; resize: vertical; }
     .booking .btn { border-color: var(--white); color: var(--ink); background: var(--white); }
     .booking .btn:hover { color: var(--white); background: var(--rose); border-color: var(--rose); }
-    .form-note { grid-column: 1 / -1; color: #bdb6b2; font-size: 11px; text-align: center; }
+    .form-note { grid-column: 1 / -1; color: #bdb6b2; font-size: 13px; text-align: center; }
 
     .faq { max-width: 850px; margin: auto; }
     .faq-item { border-bottom: 1px solid var(--line); }
@@ -358,10 +356,10 @@
       align-items: center;
       cursor: pointer;
       text-align: left;
-      font-size: 14px;
+      font-size: 17px;
     }
     .faq-symbol { color: var(--rose); font-size: 22px; font-weight: 300; }
-    .faq-answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s; color: var(--muted); font-size: 13px; }
+    .faq-answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s; color: var(--muted); font-size: 16px; }
     .faq-answer > div { overflow: hidden; }
     .faq-answer p { padding: 0 45px 22px 0; }
     .faq-item.active .faq-answer { grid-template-rows: 1fr; }
@@ -444,9 +442,6 @@
       .service-card:last-child { border-bottom: 0; }
       .portfolio-grid { grid-template-columns: 1fr 1fr; gap: 7px; }
       .portfolio-item img { height: 280px; }
-      .portfolio-item:last-child:nth-child(3n + 1),
-      .portfolio-item:last-child:nth-child(3n + 2) { grid-column: auto; }
-      .portfolio-item:last-child:nth-child(odd) { grid-column: 1 / -1; }
       form, .review-form { grid-template-columns: 1fr; }
       .field-full { grid-column: auto; }
       .rating-field, .review-note, .review-status { grid-column: auto; }
@@ -542,6 +537,8 @@
         <button class="portfolio-item"><img src="images/work8.jpg" alt="Radiant soft glam makeup look" loading="lazy"></button>
         <button class="portfolio-item"><img src="images/work9.jpg" alt="Elegant natural glam makeup look" loading="lazy"></button>
         <button class="portfolio-item"><img src="images/work10.jpg" alt="Elegant updo and soft glam makeup" loading="lazy"></button>
+        <button class="portfolio-item"><img src="images/work11.jpg" alt="Soft rose glam makeup with luminous skin" loading="lazy"></button>
+        <button class="portfolio-item"><img src="images/work12.jpg" alt="Polished blonde glam makeup look" loading="lazy"></button>
       </div>
     </section>
 
